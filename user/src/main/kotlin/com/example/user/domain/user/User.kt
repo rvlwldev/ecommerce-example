@@ -1,6 +1,7 @@
 package com.example.user.domain.user
 
 import com.example.user.core.exception.BizException
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -15,12 +16,16 @@ class User(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val uuid: Long = 0,
 
+    @Column(nullable = false, unique = true)
     val id: String = "",
 
     var name: String = "",
 
     var cash: Long = 0
 ) {
+    constructor() : this(0)
+    constructor(id: String, name: String) : this(uuid = 0, id = id, name = name, cash = 0)
+
     fun useCash(amount: Long) {
         if (cash - amount < 0L) throw BizException(UserError.NOT_ENOUGH_CASH)
         cash -= amount

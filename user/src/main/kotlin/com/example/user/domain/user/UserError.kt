@@ -10,5 +10,8 @@ enum class UserError(
 ) : BizError {
     NOT_ENOUGH_CASH(HttpStatus.BAD_REQUEST, "USER_001", "캐시가 부족합니다."),
     INVALID_CHARGE_UNIT(HttpStatus.BAD_REQUEST, "USER_002", "캐시 충전 단위는 100 단위만 허용됩니다."),
-    INVALID_NAME(HttpStatus.BAD_REQUEST, "USER_002", "이름에 숫자, 공백 및 특수문자는 포함할 수 없습니다.")
+    INVALID_NAME(HttpStatus.BAD_REQUEST, "USER_003", "이름에 숫자, 공백 및 특수문자는 포함할 수 없습니다."),
+
+    NOT_FOUND(HttpStatus.NOT_FOUND, "USER_004", "존재하지 않는 사용자입니다."),
+    DUPLICATED_ID(HttpStatus.CONFLICT, "USER_005", "이미 존재하는 아이디입니다.")
 }
