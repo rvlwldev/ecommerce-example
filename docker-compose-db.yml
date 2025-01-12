@@ -1,0 +1,49 @@
+version: '3.9'
+services:
+  order-db:
+    image: mysql:latest
+    container_name: order-db
+    restart: always
+    ports:
+      - "3303:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: ecommerce-order
+    volumes:
+      - ./.order-db-data:/var/lib/mysql
+
+  pay-db:
+    image: mysql:latest
+    container_name: pay-db
+    restart: always
+    ports:
+      - "3302:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: ecommerce-pay
+    volumes:
+      - ./.pay-db-data:/var/lib/mysql
+
+  product-db:
+    image: mysql:latest
+    container_name: product-db
+    restart: always
+    ports:
+      - "3301:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: ecommerce-product
+    volumes:
+      - ./.product-db-data:/var/lib/mysql
+
+  user-db:
+    image: mysql:latest
+    container_name: user-db
+    restart: always
+    ports:
+      - "3300:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: ecommerce-user
+    volumes:
+      - ./.user-db-data:/var/lib/mysql

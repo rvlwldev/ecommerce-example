@@ -1,10 +1,24 @@
 server:
-    port: 8080
+  port: 8080
+
+logging:
+  level:
+    org.hibernate.orm.connections.pooling: OFF
 
 spring:
-    output:
-        ansi:
-            enabled: ALWAYS
-    devtools:
-        restart:
-            enabled: true
+  output:
+    ansi:
+      enabled: ALWAYS
+  devtools:
+    restart:
+      enabled: true
+  datasource:
+    url: jdbc:mysql://localhost:3300/ecommerce-user?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update

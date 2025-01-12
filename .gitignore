@@ -6,6 +6,9 @@
 **/gradle/
 **/.gradle/
 
+### Docker Volumes ###
+*db-data
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
