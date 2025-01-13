@@ -19,10 +19,16 @@ class User(
     @Column(nullable = false, unique = true)
     val id: String = "",
 
-    var name: String = "",
+    name: String = "",
 
-    var cash: Long = 0
+    cash: Long = 0
 ) {
+    var name: String = name
+        private set
+
+    var cash: Long = cash
+        private set
+
     constructor() : this(0)
     constructor(id: String, name: String) : this(uuid = 0, id = id, name = name, cash = 0)
 
