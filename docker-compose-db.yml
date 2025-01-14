@@ -10,7 +10,7 @@ services:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: ecommerce-order
     volumes:
-      - ./.order-db-data:/var/lib/mysql
+      - ./volumes/mysql/order-data:/var/lib/mysql
 
   pay-db:
     image: mysql:latest
@@ -22,7 +22,7 @@ services:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: ecommerce-pay
     volumes:
-      - ./.pay-db-data:/var/lib/mysql
+      - ./volumes/mysql/pay-data:/var/lib/mysql
 
   product-db:
     image: mysql:latest
@@ -34,7 +34,7 @@ services:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: ecommerce-product
     volumes:
-      - ./.product-db-data:/var/lib/mysql
+      - ./volumes/mysql/product-data:/var/lib/mysql
 
   user-db:
     image: mysql:latest
@@ -46,4 +46,4 @@ services:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: ecommerce-user
     volumes:
-      - ./.user-db-data:/var/lib/mysql
+      - ./volumes/mysql/user-data:/var/lib/mysql

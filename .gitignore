@@ -7,7 +7,7 @@
 **/.gradle/
 
 ### Docker Volumes ###
-*db-data
+volumes/
 
 ### IntelliJ IDEA ###
 .idea
