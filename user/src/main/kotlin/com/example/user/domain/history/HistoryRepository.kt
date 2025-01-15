@@ -3,8 +3,9 @@ package com.example.user.domain.history
 import org.springframework.data.domain.Pageable
 
 interface HistoryRepository {
-    fun save(history: UserHistory): UserHistory
-    fun save(history: CashHistory): CashHistory
-    fun findUserLogList(uuid: Long, pageable: Pageable): List<UserHistory>
-    fun findCashLogList(uuid: Long, pageable: Pageable): List<CashHistory>
+    fun <T : History> save(history: T): T
+    fun <T : History> find(id: String, pageable: Pageable): List<T>
+
+    fun findUserHistoryList(id: String, pageable: Pageable): List<UserHistory>
+    fun findCashHistoryList(id: String, pageable: Pageable): List<CashHistory>
 }

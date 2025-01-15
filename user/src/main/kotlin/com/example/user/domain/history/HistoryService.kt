@@ -1,23 +1,32 @@
 package com.example.user.domain.history
 
+import com.example.user.domain.history.HistoryInfo.CashHistoryInfo
+import com.example.user.domain.history.HistoryInfo.UserNameHistoryInfo
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
 class HistoryService(private val repo: HistoryRepository) {
-    fun saveUserLogs(uuid: Long, type: UserHistoryType, name: String) =
-        UserHistory(uuid = uuid, type = type, name = name)
-            .let { history -> repo.save(history) }
-            .let { history -> HistoryDto.UserLogInfo(history) }
+    fun createUserNameHistory(
+        id: String,
+        type: UserHistoryType,
+        newName: String,
+        oldName: String?
+    ): UserNameHistoryInfo {
+        val history = UserHistory(id = id, type = type, newName = newName, oldName = oldName)
 
-    fun saveCashLogs(uuid: Long, type: CashHistoryType, amount: Long) =
-        CashHistory(uuid = uuid, type = type, amount = amount)
-            .let { history -> repo.save(history) }
-            .let { history -> HistoryDto.CashLogInfo(history) }
+        return repo.save(history).toInfo()
+    }
 
-    fun getUserLogs(uuid: Long, pageable: Pageable) =
-        repo.findUserLogList(uuid, pageable).map { log -> HistoryDto.UserLogInfo(log) }
+    fun createCashHistory(id: String, type: CashHistoryType, amount: Long): CashHistoryInfo {
+        val history = CashHistory(id = id, type = type, amount = amount)
 
-    fun getCashLogs(uuid: Long, pageable: Pageable) =
-        repo.findCashLogList(uuid, pageable).map { log -> HistoryDto.CashLogInfo(log) }
+        return repo.save(history).toInfo()
+    }
+
+    fun findUserHistoryList(id: String, pageable: Pageable) =
+        repo.find<UserHistory>(id, pageable).map { history -> history.toInfo() }
+
+    fun findCashHistoryList(id: String, pageable: Pageable) =
+        repo.find<CashHistory>(id, pageable).map { history -> history.toInfo() }
 }

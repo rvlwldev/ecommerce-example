@@ -1,33 +1,32 @@
 package com.example.user.domain.history
 
-import com.example.user.domain.core.Audit
-import jakarta.persistence.AttributeOverride
-import jakarta.persistence.AttributeOverrides
+import com.example.user.domain.history.HistoryInfo.CashHistoryInfo
 import jakarta.persistence.Column
-import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import jakarta.persistence.IdClass
+import java.time.LocalDateTime
+
 
 enum class CashHistoryType {
     USE, CHARGE
 }
 
 @Entity
+@IdClass(HistoryId::class)
 class CashHistory(
     @Id
-    val seq: Long = 0,
+    override val seq: Long = 0,
 
-    val uuid: Long = 0,
+    @Id
+    override val id: String = "",
 
-    @Column(name = "type", columnDefinition = "VARCHAR(255)")
-    val type: CashHistoryType,
+    @Column(columnDefinition = "VARCHAR(255)")
+    override val type: CashHistoryType,
 
-    val amount: Long = 0,
+    override val createdAt: LocalDateTime = LocalDateTime.now(),
 
-    @Embedded
-    @AttributeOverrides(
-        AttributeOverride(name = "updatedAt", column = Column(insertable = false, updatable = false)),
-        AttributeOverride(name = "deletedAt", column = Column(insertable = false, updatable = false))
-    )
-    val audit: Audit = Audit()
-)
+    val amount: Long = 0
+) : History {
+    override fun toInfo() = CashHistoryInfo(this)
+}
