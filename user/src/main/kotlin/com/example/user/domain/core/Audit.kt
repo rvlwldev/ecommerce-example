@@ -1,12 +1,13 @@
 package com.example.user.domain.core
 
+import jakarta.persistence.Column
 import jakarta.persistence.Embeddable
 import jakarta.persistence.PrePersist
-import jakarta.persistence.PreUpdate
 import java.time.LocalDateTime
 
 @Embeddable
 class Audit {
+    @Column(updatable = false)
     var createdAt: LocalDateTime = LocalDateTime.now()
         private set
 
@@ -21,8 +22,7 @@ class Audit {
         createdAt = LocalDateTime.now()
     }
 
-    @PreUpdate
-    private fun onUpdate() {
+    fun update() {
         updatedAt = LocalDateTime.now()
     }
 
