@@ -30,12 +30,16 @@ class User(
     constructor(id: String, name: String) : this(id = id, name = name, cash = 0)
 
     fun chargeCash(amount: Long) {
+        if (amount < 1) throw BizException(UserError.NOT_ALLOWED_ZERO)
         if (amount % 100 != 0L) throw BizException(UserError.INVALID_CHARGE_UNIT)
+
         cash += amount
     }
 
     fun useCash(amount: Long) {
+        if (amount < 1) throw BizException(UserError.NOT_ALLOWED_ZERO)
         if (cash - amount < 0L) throw BizException(UserError.NOT_ENOUGH_CASH)
+
         cash -= amount
     }
 

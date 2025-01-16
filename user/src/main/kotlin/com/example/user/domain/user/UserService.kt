@@ -12,12 +12,6 @@ class UserService(
     private val repo: UserRepository,
     private val historyService: HistoryService
 ) {
-    fun find(uuid: Long): UserInfo {
-        val user = repo.find(uuid) ?: throw BizException(UserError.NOT_FOUND)
-
-        return user.toInfo()
-    }
-
     fun find(id: String): UserInfo {
         val user = repo.find(id) ?: throw BizException(UserError.NOT_FOUND)
 
@@ -35,27 +29,6 @@ class UserService(
     }
 
     @Transactional
-    fun chargeCash(id: String, amount: Long): UserInfo {
-        val user = repo.find(id) ?: throw BizException(UserError.NOT_FOUND)
-
-        user.chargeCash(amount)
-        repo.save(user)
-
-        historyService.createCashHistory(user.id, CashHistoryType.CHARGE, amount)
-        return user.toInfo()
-    }
-
-    @Transactional
-    fun useCash(id: String, amount: Long): UserInfo {
-        val user = repo.find(id) ?: throw BizException(UserError.NOT_FOUND)
-
-        user.useCash(amount)
-        repo.save(user)
-
-        historyService.createCashHistory(user.id, CashHistoryType.USE, amount)
-        return user.toInfo()
-    }
-
     fun updateName(id: String, newName: String): UserInfo {
         val user = repo.find(id) ?: throw BizException(UserError.NOT_FOUND)
 
@@ -63,6 +36,26 @@ class UserService(
         user.changeName(newName)
 
         historyService.createUserNameHistory(user.id, UserHistoryType.CHANGE_NAME, user.name, oldName)
-        return user.toInfo();
+        return repo.save(user).toInfo()
+    }
+
+    @Transactional
+    fun chargeCash(id: String, amount: Long): UserInfo {
+        val user = repo.find(id) ?: throw BizException(UserError.NOT_FOUND)
+
+        user.chargeCash(amount)
+
+        historyService.createCashHistory(user.id, CashHistoryType.CHARGE, amount)
+        return repo.save(user).toInfo()
+    }
+
+    @Transactional
+    fun useCash(id: String, amount: Long): UserInfo {
+        val user = repo.find(id) ?: throw BizException(UserError.NOT_FOUND)
+
+        user.useCash(amount)
+
+        historyService.createCashHistory(user.id, CashHistoryType.USE, amount)
+        return repo.save(user).toInfo()
     }
 }
