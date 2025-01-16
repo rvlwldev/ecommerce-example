@@ -30,25 +30,25 @@ class User(
     constructor(id: String, name: String) : this(id = id, name = name, cash = 0)
 
     fun chargeCash(amount: Long) {
-        if (amount < 1) throw BizException(UserError.NOT_ALLOWED_ZERO)
-        if (amount % 100 != 0L) throw BizException(UserError.INVALID_CHARGE_UNIT)
+        if (amount < 1) throw BizException(UserError.CASH_NOT_ALLOWED_ZERO)
+        if (amount % 100 != 0L) throw BizException(UserError.CASH_INVALID_CHARGE_UNIT)
 
         cash += amount
     }
 
     fun useCash(amount: Long) {
-        if (amount < 1) throw BizException(UserError.NOT_ALLOWED_ZERO)
-        if (cash - amount < 0L) throw BizException(UserError.NOT_ENOUGH_CASH)
+        if (amount < 1) throw BizException(UserError.CASH_NOT_ALLOWED_ZERO)
+        if (cash - amount < 0L) throw BizException(UserError.CASH_NOT_ENOUGH_CASH)
 
         cash -= amount
     }
 
     fun changeName(newName: String) {
         if (name == newName)
-            throw BizException(UserError.UPDATE_SAME_NAME)
+            throw BizException(UserError.NAME_DUPLICATED_UPDATE)
 
         if (!newName.matches(Regex("^[a-zA-Z가-힣]+$")) || newName.isBlank())
-            throw BizException(UserError.INVALID_NAME)
+            throw BizException(UserError.NAME_INVALID)
 
         name = newName
         audit.update()

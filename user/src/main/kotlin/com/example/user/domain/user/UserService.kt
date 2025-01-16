@@ -13,14 +13,14 @@ class UserService(
     private val historyService: HistoryService
 ) {
     fun find(id: String): UserInfo {
-        val user = repo.find(id) ?: throw BizException(UserError.NOT_FOUND)
+        val user = repo.find(id) ?: throw BizException(UserError.USER_NOT_FOUND)
 
         return user.toInfo()
     }
 
     @Transactional
     fun create(id: String, name: String): UserInfo {
-        if (repo.find(id) != null) throw BizException(UserError.DUPLICATED_ID)
+        if (repo.find(id) != null) throw BizException(UserError.USER_DUPLICATED_ID)
 
         val user = repo.save(User(id, name))
 
@@ -30,7 +30,7 @@ class UserService(
 
     @Transactional
     fun updateName(id: String, newName: String): UserInfo {
-        val user = repo.find(id) ?: throw BizException(UserError.NOT_FOUND)
+        val user = repo.find(id) ?: throw BizException(UserError.USER_NOT_FOUND)
 
         val oldName = user.name
         user.changeName(newName)
@@ -41,7 +41,7 @@ class UserService(
 
     @Transactional
     fun chargeCash(id: String, amount: Long): UserInfo {
-        val user = repo.find(id) ?: throw BizException(UserError.NOT_FOUND)
+        val user = repo.find(id) ?: throw BizException(UserError.USER_NOT_FOUND)
 
         user.chargeCash(amount)
 
@@ -51,7 +51,7 @@ class UserService(
 
     @Transactional
     fun useCash(id: String, amount: Long): UserInfo {
-        val user = repo.find(id) ?: throw BizException(UserError.NOT_FOUND)
+        val user = repo.find(id) ?: throw BizException(UserError.USER_NOT_FOUND)
 
         user.useCash(amount)
 
