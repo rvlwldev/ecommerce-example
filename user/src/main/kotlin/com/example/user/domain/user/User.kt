@@ -40,6 +40,9 @@ class User(
     }
 
     fun changeName(newName: String) {
+        if (name == newName)
+            throw BizException(UserError.UPDATE_SAME_NAME)
+
         if (!newName.matches(Regex("^[a-zA-Z가-힣]+$")) || newName.isBlank())
             throw BizException(UserError.INVALID_NAME)
 

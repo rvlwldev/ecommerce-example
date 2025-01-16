@@ -16,11 +16,12 @@ class UserTest {
         assertThrows<BizException> { user.changeName("") }
         assertThrows<BizException> { user.changeName("!") }
         assertThrows<BizException> { user.changeName("new name") }
+        assertThrows<BizException> { user.changeName("TestName") }
         assertDoesNotThrow { user.changeName("newName") }
     }
 
     @Test
-    fun `cash must be charged in increments of hundred` () {
+    fun `cash must be charged in increments of hundred`() {
         val user = User("TestId", "TestName")
 
         assertDoesNotThrow { user.chargeCash(1000) }
@@ -31,7 +32,7 @@ class UserTest {
     }
 
     @Test
-    fun `when user use or charge cash it must not be under zero` () {
+    fun `when user use or charge cash it must not be under zero`() {
         val user = User("TestId", "TestName")
 
         user.chargeCash(1000)
