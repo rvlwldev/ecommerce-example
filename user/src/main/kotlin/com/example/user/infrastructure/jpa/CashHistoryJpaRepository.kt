@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface CashHistoryJpaRepository : JpaRepository<CashHistory, Long> {
-    fun findAllByUuid(uuid: Long, pageable: Pageable): Page<CashHistory>
+    fun findAllByIdOrderByCreatedAtDesc(id: String, pageable: Pageable): Page<CashHistory>
 }

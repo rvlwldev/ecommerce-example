@@ -25,8 +25,8 @@ class HistoryService(private val repo: HistoryRepository) {
     }
 
     fun findUserHistoryList(id: String, pageable: Pageable) =
-        repo.find<UserHistory>(id, pageable).map { history -> history.toInfo() }
+        repo.findUserHistoryList(id, pageable).map { history -> history.toInfo() }
 
     fun findCashHistoryList(id: String, pageable: Pageable) =
-        repo.find<CashHistory>(id, pageable).map { history -> history.toInfo() }
+        repo.findCashHistoryList(id, pageable).map { history -> history.toInfo() }
 }
