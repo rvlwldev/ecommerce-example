@@ -9,7 +9,7 @@ import jakarta.persistence.Table
 import jakarta.persistence.UniqueConstraint
 
 @Entity
-@Table(uniqueConstraints = [UniqueConstraint(name = "unique_user_id", columnNames = ["id"])])
+@Table(name = "\"user\"", uniqueConstraints = [UniqueConstraint(name = "unique_user_id", columnNames = ["id"])])
 class User(
     @Id
     val id: String = "",
@@ -19,7 +19,7 @@ class User(
     cash: Long = 0,
 
     @Embedded
-    val audit: Audit = Audit()
+    val audit: Audit = Audit(),
 ) {
     var name: String = name
         private set

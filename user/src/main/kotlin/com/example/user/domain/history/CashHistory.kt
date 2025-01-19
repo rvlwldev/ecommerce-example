@@ -22,11 +22,11 @@ class CashHistory(
     override val id: String = "",
 
     @Column(columnDefinition = "VARCHAR(255)")
-    override val type: CashHistoryType,
+    override val type: CashHistoryType = CashHistoryType.USE,
 
     override val createdAt: LocalDateTime = LocalDateTime.now(),
 
-    val amount: Long = 0
+    val amount: Long = 0,
 ) : History {
     override fun toInfo() = CashHistoryInfo(this)
 }

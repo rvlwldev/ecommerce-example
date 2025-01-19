@@ -22,12 +22,12 @@ class UserHistory(
     override val id: String = "",
 
     @Column(columnDefinition = "VARCHAR(255)")
-    override val type: UserHistoryType,
+    override val type: UserHistoryType = UserHistoryType.CREATE,
 
     override val createdAt: LocalDateTime = LocalDateTime.now(),
 
-    val newName: String,
-    val oldName: String?
+    val newName: String = "",
+    val oldName: String? = null,
 ) : History {
     override fun toInfo() = UserNameHistoryInfo(this)
 }

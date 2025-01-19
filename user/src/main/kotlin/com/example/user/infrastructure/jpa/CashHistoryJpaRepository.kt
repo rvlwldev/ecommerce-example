@@ -1,10 +1,11 @@
 package com.example.user.infrastructure.jpa
 
 import com.example.user.domain.history.CashHistory
+import com.example.user.domain.history.HistoryId
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface CashHistoryJpaRepository : JpaRepository<CashHistory, Long> {
+interface CashHistoryJpaRepository : JpaRepository<CashHistory, HistoryId> {
     fun findAllByIdOrderByCreatedAtDesc(id: String, pageable: Pageable): Page<CashHistory>
 }
