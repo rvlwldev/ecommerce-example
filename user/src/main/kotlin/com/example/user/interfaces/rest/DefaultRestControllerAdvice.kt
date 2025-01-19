@@ -1,8 +1,8 @@
-package com.example.user.presentation.rest
+package com.example.user.interfaces.rest
 
 import com.example.user.core.exception.BizException
 import com.example.user.core.exception.ErrorResponse
-import com.example.user.presentation.rest.core.BizRestController
+import com.example.user.interfaces.rest.core.BizRestController
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity

@@ -1,4 +1,4 @@
-package com.example.user.presentation.rest.core.request
+package com.example.user.interfaces.rest.core.request
 
 import org.springframework.format.annotation.NumberFormat
 

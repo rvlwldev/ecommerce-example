@@ -1,4 +1,4 @@
-package com.example.user.presentation.rest.core
+package com.example.user.interfaces.rest.core
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
