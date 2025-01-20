@@ -46,6 +46,7 @@ dependencies {
 	testImplementation("org.testcontainers:kafka:1.20.2")
 	testImplementation("org.testcontainers:junit-jupiter:1.20.2")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testRuntimeOnly("com.h2database:h2")
 }
 
 tasks.withType<KotlinCompile>().configureEach {
