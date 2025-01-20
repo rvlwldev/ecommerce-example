@@ -35,8 +35,8 @@ class UserServiceTest {
 
     @Test
     fun `find user by id - success`() {
-        val id = "id"
-        val name = "name"
+        val id = "testId"
+        val name = "testName"
         val user = User(id, name)
 
         `when`(repo.find(id)).thenReturn(user)
@@ -55,8 +55,8 @@ class UserServiceTest {
 
     @Test
     fun `create user - success`() {
-        val id = "id"
-        val name = "name"
+        val id = "testId"
+        val name = "testName"
         val user = User(id, name)
 
         `when`(repo.save(any<User>())).thenReturn(user)
@@ -70,19 +70,19 @@ class UserServiceTest {
 
     @Test
     fun `create user - fail`() {
-        val user = User("exist", "any")
+        val user = User("testId", "testName")
 
         `when`(repo.find(any<String>())).thenReturn(user)
-        assertThrows<BizException> { sut.create("any", "any") }
+        assertThrows<BizException> { sut.create("testId", "testName") }
         verify(repo, never()).save(any<User>())
-        verify(history, never()).createUserNameHistory("any", UserHistoryType.CREATE, "any", null)
+        verify(history, never()).createUserNameHistory("testId", UserHistoryType.CREATE, "testName", null)
     }
 
     @Test
     fun `update user's name - success`() {
-        val id = "id"
-        val name = "name"
-        val newName = "new"
+        val id = "testId"
+        val name = "testName"
+        val newName = "newName"
         val user = User(id, name)
 
         `when`(repo.find(id)).thenReturn(user)
@@ -96,9 +96,9 @@ class UserServiceTest {
 
     @Test
     fun `update user's name - fail`() {
-        val id = "id"
-        val name = "name"
-        val newName = "name"
+        val id = "testId"
+        val name = "testName"
+        val newName = "testName"
         val user = User(id, name)
 
         `when`(repo.find(id)).thenReturn(user)
@@ -109,8 +109,8 @@ class UserServiceTest {
 
     @Test
     fun `charge user's cash - success`() {
-        val id = "id"
-        val name = "name"
+        val id = "testId"
+        val name = "testName"
         val user = User(id, name)
         val amount = 100L
 
@@ -125,8 +125,8 @@ class UserServiceTest {
 
     @Test
     fun `charge user's cash - fail`() {
-        val id = "id"
-        val name = "name"
+        val id = "testId"
+        val name = "testName"
         val user = User(id, name)
         val fails = listOf<Long>(0, 1, -1, -100, -101, 99, 101)
 
@@ -142,8 +142,8 @@ class UserServiceTest {
 
     @Test
     fun `use user's cash - success`() {
-        val id = "id"
-        val name = "name"
+        val id = "testId"
+        val name = "testName"
         val user = User(id, name)
         val save = 1000L
         val use = 100L
@@ -158,8 +158,8 @@ class UserServiceTest {
 
     @Test
     fun `use user's cash - fail`() {
-        val id = "id"
-        val name = "name"
+        val id = "testId"
+        val name = "testName"
         val user = User(id, name)
         val fails = listOf<Long>(0, -1, -100, -1000)
 
