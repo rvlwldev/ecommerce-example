@@ -1,0 +1,27 @@
+version: "3.8"
+
+networks:
+  redis-cluster:
+    driver: bridge
+
+services:
+  redis1:
+    image: redis:latest
+    container_name: redis-001
+    ports:
+      - "6000:6379"
+    volumes:
+      - ./volumes/redis/001/redis.conf:/usr/local/etc/redis/redis.conf
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+    networks:
+      - redis-cluster
+  redis2:
+    image: redis:latest
+    container_name: redis-002
+    ports:
+      - "6001:6379"
+    volumes:
+      - ./volumes/redis/002/redis.conf:/usr/local/etc/redis/redis.conf
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+    networks:
+      - redis-cluster
