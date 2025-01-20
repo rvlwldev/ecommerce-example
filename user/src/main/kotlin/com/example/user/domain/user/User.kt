@@ -27,7 +27,13 @@ class User(
     var cash: Long = cash
         private set
 
-    constructor(id: String, name: String) : this(id = id, name = name, cash = 0)
+    constructor(id: String, name: String) : this(id = id, name = name, cash = 0) {
+        if (id.length < 4 || id.isBlank() || !id.matches(Regex("^[a-zA-Z가-힣]+$")))
+            throw BizException(UserError.USER_INVALID_ID)
+
+        if (name.length < 4 || !name.matches(Regex("^[a-zA-Z가-힣]+$")) || name.isBlank())
+            throw BizException(UserError.NAME_INVALID)
+    }
 
     fun chargeCash(amount: Long) {
         if (amount < 1) throw BizException(UserError.CASH_NOT_ALLOWED_ZERO)
@@ -47,7 +53,7 @@ class User(
         if (name == newName)
             throw BizException(UserError.NAME_DUPLICATED_UPDATE)
 
-        if (!newName.matches(Regex("^[a-zA-Z가-힣]+$")) || newName.isBlank())
+        if (newName.length < 4 || !newName.matches(Regex("^[a-zA-Z가-힣]+$")) || newName.isBlank())
             throw BizException(UserError.NAME_INVALID)
 
         name = newName
