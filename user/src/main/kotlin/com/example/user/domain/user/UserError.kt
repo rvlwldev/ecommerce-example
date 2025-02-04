@@ -18,4 +18,7 @@ enum class UserError(
     CASH_NOT_ALLOWED_ZERO(HttpStatus.BAD_REQUEST, "ERR_CASH_001", "캐시 충전/사용은 음수, 0은 허용되지 않습니다."),
     CASH_INVALID_CHARGE_UNIT(HttpStatus.BAD_REQUEST, "ERR_CASH_002", "캐시 충전 단위는 100 단위만 허용됩니다."),
     CASH_NOT_ENOUGH_CASH(HttpStatus.BAD_REQUEST, "ERR_CASH_003", "캐시가 부족합니다."),
+
+    // TODO(Distributed Lock Timeout Exception)
+    CASH_LOCK_TIMEOUT(HttpStatus.TOO_MANY_REQUESTS, "ERR_CASH_004", "너무 많은 요청입니다.\n잠시후 다시 시도해주세요."),
 }

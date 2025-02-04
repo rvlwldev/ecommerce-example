@@ -2,11 +2,15 @@ package com.example.user.domain.user
 
 import com.example.user.core.exception.BizException
 import com.example.user.domain.core.Audit
+import com.example.user.domain.point.Point
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import jakarta.persistence.UniqueConstraint
+import kotlin.text.Regex
+import kotlin.text.isBlank
+import kotlin.text.matches
 
 @Entity
 @Table(name = "\"user\"", uniqueConstraints = [UniqueConstraint(name = "unique_user_id", columnNames = ["id"])])
@@ -16,7 +20,7 @@ class User(
 
     name: String = "",
 
-    cash: Long = 0,
+    val point: Point = Point(),
 
     @Embedded
     val audit: Audit = Audit(),
@@ -24,29 +28,12 @@ class User(
     var name: String = name
         private set
 
-    var cash: Long = cash
-        private set
-
-    constructor(id: String, name: String) : this(id = id, name = name, cash = 0) {
+    constructor(id: String, name: String) : this(id = id, name = name, point = Point()) {
         if (id.length < 4 || id.isBlank() || !id.matches(Regex("^[a-zA-Z가-힣]+$")))
             throw BizException(UserError.USER_INVALID_ID)
 
         if (name.length < 4 || !name.matches(Regex("^[a-zA-Z가-힣]+$")) || name.isBlank())
             throw BizException(UserError.NAME_INVALID)
-    }
-
-    fun chargeCash(amount: Long) {
-        if (amount < 1) throw BizException(UserError.CASH_NOT_ALLOWED_ZERO)
-        if (amount % 100 != 0L) throw BizException(UserError.CASH_INVALID_CHARGE_UNIT)
-
-        cash += amount
-    }
-
-    fun useCash(amount: Long) {
-        if (amount < 1) throw BizException(UserError.CASH_NOT_ALLOWED_ZERO)
-        if (cash - amount < 0L) throw BizException(UserError.CASH_NOT_ENOUGH_CASH)
-
-        cash -= amount
     }
 
     fun changeName(newName: String) {
@@ -60,5 +47,4 @@ class User(
         audit.update()
     }
 
-    fun toInfo() = UserInfo(this)
 }

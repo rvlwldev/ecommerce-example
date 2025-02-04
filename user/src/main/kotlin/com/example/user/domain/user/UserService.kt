@@ -1,17 +1,11 @@
 package com.example.user.domain.user
 
 import com.example.user.core.exception.BizException
-import com.example.user.domain.history.CashHistoryType
-import com.example.user.domain.history.HistoryService
-import com.example.user.domain.history.UserHistoryType
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class UserService(
-    private val repo: UserRepository,
-    private val historyService: HistoryService
-) {
+class UserService(private val repo: UserRepository) {
     fun find(id: String): UserInfo {
         val user = repo.find(id) ?: throw BizException(UserError.USER_NOT_FOUND)
 
@@ -24,7 +18,6 @@ class UserService(
 
         val user = repo.save(User(id, name))
 
-        historyService.createUserNameHistory(user.id, UserHistoryType.CREATE, user.name, null)
         return user.toInfo()
     }
 
@@ -32,30 +25,11 @@ class UserService(
     fun updateName(id: String, newName: String): UserInfo {
         val user = repo.find(id) ?: throw BizException(UserError.USER_NOT_FOUND)
 
+        // TODO : to Facade build a logic that save history too
         val oldName = user.name
         user.changeName(newName)
 
-        historyService.createUserNameHistory(user.id, UserHistoryType.CHANGE_NAME, user.name, oldName)
         return repo.save(user).toInfo()
     }
 
-    @Transactional
-    fun chargeCash(id: String, amount: Long): UserInfo {
-        val user = repo.find(id) ?: throw BizException(UserError.USER_NOT_FOUND)
-
-        user.chargeCash(amount)
-
-        historyService.createCashHistory(user.id, CashHistoryType.CHARGE, amount)
-        return repo.save(user).toInfo()
-    }
-
-    @Transactional
-    fun useCash(id: String, amount: Long): UserInfo {
-        val user = repo.find(id) ?: throw BizException(UserError.USER_NOT_FOUND)
-
-        user.useCash(amount)
-
-        historyService.createCashHistory(user.id, CashHistoryType.USE, amount)
-        return repo.save(user).toInfo()
-    }
 }
