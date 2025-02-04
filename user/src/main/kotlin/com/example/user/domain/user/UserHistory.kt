@@ -1,12 +1,11 @@
-package com.example.user.domain.history
+package com.example.user.domain.user
 
-import com.example.user.domain.history.HistoryInfo.UserNameHistoryInfo
+import com.example.user.domain.core.HistoryId
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.IdClass
 import java.time.LocalDateTime
-
 
 enum class UserHistoryType {
     CREATE, CHANGE_NAME
@@ -16,18 +15,16 @@ enum class UserHistoryType {
 @IdClass(HistoryId::class)
 class UserHistory(
     @Id
-    override val seq: Long = 0,
+    val seq: Long = 0,
 
     @Id
-    override val id: String = "",
+    val id: String = "",
 
     @Column(columnDefinition = "VARCHAR(255)")
-    override val type: UserHistoryType = UserHistoryType.CREATE,
+    val type: UserHistoryType = UserHistoryType.CREATE,
 
-    override val createdAt: LocalDateTime = LocalDateTime.now(),
+    val createdAt: LocalDateTime = LocalDateTime.now(),
 
     val newName: String = "",
     val oldName: String? = null,
-) : History {
-    override fun toInfo() = UserNameHistoryInfo(this)
-}
+)

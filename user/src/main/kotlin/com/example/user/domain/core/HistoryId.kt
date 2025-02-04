@@ -1,4 +1,4 @@
-package com.example.user.domain.history
+package com.example.user.domain.core
 
 import java.io.Serializable
 

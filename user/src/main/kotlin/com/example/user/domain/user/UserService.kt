@@ -6,30 +6,29 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UserService(private val repo: UserRepository) {
-    fun find(id: String): UserInfo {
+    fun find(id: String): UserDto.Info {
         val user = repo.find(id) ?: throw BizException(UserError.USER_NOT_FOUND)
 
         return user.toInfo()
     }
 
     @Transactional
-    fun create(id: String, name: String): UserInfo {
+    fun create(id: String, name: String): UserDto.Info {
         if (repo.find(id) != null) throw BizException(UserError.USER_DUPLICATED_ID)
 
-        val user = repo.save(User(id, name))
+        val user = repo.create(User(id, name))
 
         return user.toInfo()
     }
 
     @Transactional
-    fun updateName(id: String, newName: String): UserInfo {
-        val user = repo.find(id) ?: throw BizException(UserError.USER_NOT_FOUND)
-
-        // TODO : to Facade build a logic that save history too
+    fun updateName(userId: String, newName: String): UserDto.Info {
+        val user = repo.find(userId) ?: throw BizException(UserError.USER_NOT_FOUND)
         val oldName = user.name
+
         user.changeName(newName)
 
-        return repo.save(user).toInfo()
+        return repo.updateName(user, oldName).toInfo()
     }
 
 }

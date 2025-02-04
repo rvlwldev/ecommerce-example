@@ -10,7 +10,7 @@ class PointService(private val repo: PointRepository) {
         repo.find(id).toInfo()
 
     @Transactional
-    fun charge(id: Long, amount: Long): PointInfo {
+    fun charge(id: Long, amount: Long): PointDto.Info {
         val point = repo.find(id)
 
         point.charge(amount)
@@ -19,7 +19,7 @@ class PointService(private val repo: PointRepository) {
     }
 
     @Transactional
-    fun use(id: Long, amount: Long): PointInfo {
+    fun use(id: Long, amount: Long): PointDto.Info {
         val point = repo.find(id)
 
         point.use(amount)
