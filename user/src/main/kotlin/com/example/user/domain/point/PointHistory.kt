@@ -26,4 +26,10 @@ class PointHistory(
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
     val amount: Long = 0,
-)
+) {
+    constructor(userId: String, type: PointHistoryType, point: Point) : this(
+        id = userId,
+        type = type,
+        amount = point.amount
+    )
+}
