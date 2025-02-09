@@ -3,9 +3,12 @@ package com.example.user.domain.user
 import com.example.user.core.exception.BizException
 import com.example.user.domain.core.Audit
 import com.example.user.domain.point.Point
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.Id
+import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 import jakarta.persistence.UniqueConstraint
 import kotlin.text.Regex
@@ -20,6 +23,13 @@ class User(
 
     name: String = "",
 
+    @OneToOne(
+        mappedBy = "user",
+        cascade = [CascadeType.ALL],
+        fetch = FetchType.LAZY,
+        orphanRemoval = true,
+        optional = false
+    )
     val point: Point = Point(),
 
     @Embedded
