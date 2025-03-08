@@ -1,7 +1,7 @@
 spring:
   output:
     ansi:
-      enabled: ALWAYS
+      enabled: NEVER
   devtools:
     restart:
       enabled: true
@@ -15,4 +15,17 @@ spring:
   jpa:
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+  data:
+    redis:
+      cluster:
+        nodes:
+          - redis-001:6379
+          - redis-002:6379
+          - redis-003:6379
+        timeout: 1000
+      lock:
+        prefix: DISTRIBUTED-LOCK
+        timeout: 1000
+        retry: 5
+        delay: 100

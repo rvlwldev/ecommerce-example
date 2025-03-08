@@ -1,13 +1,6 @@
 server:
   port: 8080
 
-logging:
-  level:
-    org.hibernate.orm.connections.pooling: OFF
-    org.orm.connections.pooling: OFF
-    org.hibernate.tool.schema: DEBUG
-    org.hibernate.SQL: DEBUG
-
 spring:
   output:
     ansi:
@@ -29,3 +22,39 @@ spring:
       show_sql: true
       format_sql: true
       highlight_sql: true
+  data:
+    redis:
+      cluster:
+        nodes:
+          - localhost:6001
+          - localhost:16001
+          - localhost:26001
+          - localhost:6002
+          - localhost:16002
+          - localhost:26002
+          - localhost:6003
+          - localhost:16003
+          - localhost:26003
+      timeout: 1000ms
+      lettuce:
+        pool:
+          max-active: 10
+          min-idle: 2
+          max-idle: 9
+          max-wait: 100ms
+      lock:
+        timeout: 1000
+        prefix: DISTRIBUTED-LOCK
+        retry: 5
+        delay: 100
+
+logging:
+  level:
+    org.hibernate.orm.connections.pooling: OFF
+    org.orm.connections.pooling: OFF
+    org.hibernate.tool.schema: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.springframework.data.redis: DEBUG
+    io.lettuce.core: DEBUG
+    io.lettuce.core.cluster: WARN
+    io.lettuce.core.protocol: WARN
