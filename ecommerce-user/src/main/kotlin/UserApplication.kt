@@ -1,11 +1,11 @@
-package com.example.pay
+package com.example.sample
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class EcommercePayServerApplication
+class UserApplication
 
 fun main(args: Array<String>) {
-	runApplication<EcommercePayServerApplication>(*args)
+    runApplication<UserApplication>(*args)
 }
