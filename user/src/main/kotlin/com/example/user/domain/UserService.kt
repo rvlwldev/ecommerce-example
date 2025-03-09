@@ -20,7 +20,7 @@ class UserService(
             .map { user -> user as UserDetails }
             .switchIfEmpty(Mono.error(BizException(UserError.USER_NOT_FOUND)))
 
-    fun register(username: String, password: String) {
+    fun signUp(username: String, password: String) =
         repo.findByUsername(username)
             .flatMap<User> { Mono.error(BizException(UserError.USER_NAME_CONFLICT)) }
             .switchIfEmpty(Mono.defer {
@@ -28,9 +28,8 @@ class UserService(
                 val user = User(username = username, password = hashedPassword)
                 return@defer repo.save(user)
             })
-    }
 
-    fun login(username: String, password: String): Mono<String> =
+    fun signIn(username: String, password: String): Mono<String> =
         repo.findByUsername(username)
             .switchIfEmpty(Mono.error(BizException(UserError.USER_NOT_FOUND)))
             .flatMap { user ->
