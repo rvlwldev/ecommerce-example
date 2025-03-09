@@ -32,8 +32,8 @@ class RedisConfiguration {
     )
 
     @Bean
-    fun connectionFactory(): LettuceConnectionFactory {
-        logger.info("🚀 Redis 클러스터 노드 목록: ${cluster.nodes}")
+    fun redisConnectionFactory(): LettuceConnectionFactory {
+        logger.info("Redis Cluster Node List\n${cluster.nodes}")
 
         val clusterConfig = RedisClusterConfiguration(cluster.nodes)
         val clientConfig = LettuceClientConfiguration.builder()
@@ -43,7 +43,7 @@ class RedisConfiguration {
         val factory = LettuceConnectionFactory(clusterConfig, clientConfig)
         factory.afterPropertiesSet()
 
-        logger.info("✅ Redis 클러스터 연결 완료")
+        logger.info("Redis Cluster Connected")
 
         return factory
     }

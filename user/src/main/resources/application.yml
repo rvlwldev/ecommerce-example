@@ -9,19 +9,27 @@ spring:
     restart:
       enabled: true
     livereload:
-      enabled: false
-  datasource:
-    url: jdbc:mysql://localhost:3300/ecommerce-user?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
-    driver-class-name: com.mysql.cj.jdbc.Driver
+      enabled: true
+  r2dbc:
+    url: r2dbc:mariadb://localhost:3300/ecommerce-user?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 1234
-  jpa:
-    defer-datasource-initialization: true
-    hibernate:
-      ddl-auto: update
-      show_sql: true
-      format_sql: true
-      highlight_sql: true
+  sql:
+    init:
+      mode: ALWAYS
+      schema-locations: classpath:db/schema/*.sql
+  #  datasource:
+  #    url: jdbc:mysql://localhost:3300/ecommerce-user?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    username: root
+  #    password: 1234
+  #  jpa:
+  #    defer-datasource-initialization: true
+  #    hibernate:
+  #      ddl-auto: update
+  #      show_sql: true
+  #      format_sql: true
+  #      highlight_sql: true
   data:
     redis:
       cluster:
@@ -47,6 +55,10 @@ spring:
         prefix: DISTRIBUTED-LOCK
         retry: 5
         delay: 100
+  security:
+    jwt:
+      secret: "mysecretkeymysecretkeymysecretkeymysecretkey"
+      expiration: 3600000
 
 logging:
   level:
