@@ -4,6 +4,7 @@ import com.example.user.core.exception.BizException
 
 enum class UserRole(val role: String) {
     USER("USER"),
+    SELLER("SELLER"),
     ADMIN("ADMIN");
 
     companion object {

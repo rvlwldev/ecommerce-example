@@ -14,9 +14,9 @@ class User(
     private val username: String,
     private val password: String,
     val role: UserRole = UserRole.USER,
-    cash: Long = 0L,
+    address: String = "",
 ) : UserDetails {
-    var cash = cash
+    var address = address
         private set
 
     init {
