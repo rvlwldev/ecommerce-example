@@ -1,11 +1,11 @@
-package com.example.sample
+package com.example.user
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class UserApplication
+class ApiApplication
 
 fun main(args: Array<String>) {
-    runApplication<UserApplication>(*args)
+    runApplication<ApiApplication>(*args)
 }

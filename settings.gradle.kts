@@ -5,10 +5,6 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
     }
-
-    plugins {
-        kotlin("jvm") version "2.0.0"
-    }
 }
 
 plugins {
@@ -16,12 +12,10 @@ plugins {
 }
 
 dependencyResolutionManagement {
-    @Suppress("UnstableApiUsage")
-    repositories {
+    @Suppress("UnstableApiUsage") repositories {
         mavenCentral()
     }
 }
 
-include(
-    "ecommerce-user"
-)
+include(":module-api")
+project(":module-api").projectDir = file("module/api")

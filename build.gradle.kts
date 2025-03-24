@@ -1,25 +1,18 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     id("jacoco")
-    id("org.springframework.boot") version "3.4.1" apply false
-    id("io.spring.dependency-management") version "1.1.7" apply false
-    kotlin("jvm") version "2.0.0" apply false
-    kotlin("plugin.spring") version "2.0.0" apply false
-}
-
-allprojects {
-    repositories {
-        mavenCentral()
-    }
+    id("org.springframework.boot") version "3.4.1"
+    id("io.spring.dependency-management") version "1.1.7"
+    kotlin("jvm") version "2.0.0"
+    kotlin("plugin.spring") version "2.0.0"
 }
 
 subprojects {
     apply {
+        plugin("jacoco")
+        plugin("org.springframework.boot")
+        plugin("io.spring.dependency-management")
         plugin("org.jetbrains.kotlin.jvm")
         plugin("org.jetbrains.kotlin.plugin.spring")
-        plugin("io.spring.dependency-management")
-        plugin("org.springframework.boot")
     }
 
     extensions.configure<JavaPluginExtension>("java") {
@@ -35,8 +28,6 @@ subprojects {
         add("implementation", "com.fasterxml.jackson.module:jackson-module-kotlin")
 
         // spring boot
-        add("implementation", "org.springframework.boot:spring-boot-starter")
-        add("implementation", "org.springframework.boot:spring-boot-starter-web")
         add("implementation", "org.springframework.boot:spring-boot-starter-data-redis")
         add("implementation", "org.springframework.kafka:spring-kafka")
 
@@ -55,15 +46,16 @@ subprojects {
         add("testImplementation", "org.testcontainers:junit-jupiter")
     }
 
-    tasks.withType<KotlinCompile>().configureEach {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
-            freeCompilerArgs.addAll("-Xjsr305=strict")
-        }
-    }
-
     tasks.withType<Test>().configureEach {
         useJUnitPlatform()
         ignoreFailures = true
     }
+}
+
+tasks.named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    enabled = false
+}
+
+tasks.named<Jar>("jar") {
+    enabled = true
 }

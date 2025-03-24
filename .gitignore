@@ -1,8 +1,8 @@
 ### Projects ###
 **/build
 **/.kotlin
-**/src/main/**/build/
-**/src/test/**/build/
+module/api/src/main/**/build/
+module/api/src/test/**/build/
 **/gradle/
 **/.gradle/
 
