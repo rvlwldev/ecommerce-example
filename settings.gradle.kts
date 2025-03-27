@@ -19,3 +19,6 @@ dependencyResolutionManagement {
 
 include(":module-api")
 project(":module-api").projectDir = file("module/api")
+
+include(":domain-member")
+project(":domain-member").projectDir = file("module/member")
