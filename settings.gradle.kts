@@ -20,5 +20,13 @@ dependencyResolutionManagement {
 include(":module-api")
 project(":module-api").projectDir = file("module/api")
 
-include(":domain-member")
-project(":domain-member").projectDir = file("module/member")
+listOf(
+    ":member-domain" to "module/member-domain",
+    ":member-service" to "module/member-service",
+    ":member-infra-main" to "module/member-infra-main",
+    ":member-infra-jpa" to "module/member-infra-jpa"
+).forEach { (name, path) ->
+    include(name)
+    project(name).projectDir = file(path)
+}
+
