@@ -34,6 +34,10 @@ subprojects {
         // development
         add("developmentOnly", "org.springframework.boot:spring-boot-devtools")
 
+        //
+        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+        implementation("com.h2database:h2")
+
         // test
         add("testImplementation", "org.springframework.boot:spring-boot-starter-test")
         add("testImplementation", "org.jetbrains.kotlin:kotlin-test-junit5")
