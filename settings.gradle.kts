@@ -21,10 +21,7 @@ include(":module-api")
 project(":module-api").projectDir = file("module/api")
 
 listOf(
-    ":member-domain" to "module/member-domain",
-    ":member-service" to "module/member-service",
-    ":member-infra-main" to "module/member-infra-main",
-    ":member-infra-jpa" to "module/member-infra-jpa"
+    ":member" to "module/member"
 ).forEach { (name, path) ->
     include(name)
     project(name).projectDir = file(path)

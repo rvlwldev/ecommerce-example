@@ -1,2 +1,4 @@
+package service
+
 interface MemberRepository {
 }
