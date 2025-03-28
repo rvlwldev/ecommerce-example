@@ -20,6 +20,20 @@ subprojects {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
+    tasks.withType<Test>().configureEach {
+        useJUnitPlatform()
+        ignoreFailures = true
+    }
+
+    plugins.withId("org.springframework.boot") {
+        tasks.named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+            enabled = false
+        }
+        tasks.named<Jar>("jar") {
+            enabled = true
+        }
+    }
+
     dependencies {
         // core
         add("implementation", "org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -44,11 +58,6 @@ subprojects {
         add("testImplementation", "com.redis:testcontainers-redis")
         add("testImplementation", "org.testcontainers:kafka")
         add("testImplementation", "org.testcontainers:junit-jupiter")
-    }
-
-    tasks.withType<Test>().configureEach {
-        useJUnitPlatform()
-        ignoreFailures = true
     }
 }
 
