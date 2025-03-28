@@ -6,23 +6,68 @@ import jakarta.persistence.Id
 import java.util.UUID
 
 @Entity
-class Member(
+class Member protected constructor() {
+
     @Id
-    val id: UUID = UUID.randomUUID(),
+    val id: UUID = UUID.randomUUID()
 
-    name: String = "",
-    email: String = "",
-    password: String = "",
-    cash: Long = 0
-) {
-    var name = name
-        protected set
+    @Column(nullable = false)
+    var name: String = ""
+        private set
 
-    @Column(unique = true)
-    var email = email
-        protected set
-    var password = password
-        protected set
-    var cash = cash
-        protected set
+    @Column(nullable = false, unique = true)
+    var email: String = ""
+        private set
+
+    @Column(nullable = false)
+    var password: String = ""
+        private set
+
+    @Column(nullable = false)
+    var cash: Long = 0
+        private set
+
+    // TODO : dependant Address as @OneToMany
+    // val address = listOf()
+
+    constructor(name: String, email: String, password: String) : this() {
+        validateEmail(email)
+
+        this.name = name
+        this.email = email
+        this.password = password
+    }
+
+    private fun validateEmail(email: String) {
+        if (!Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$").matches(email))
+            throw IllegalArgumentException()
+    }
+
+    fun updateName(newName: String) {
+        if (newName.isEmpty())
+            throw IllegalArgumentException()
+        this.name = newName
+    }
+
+    fun updateEmail(newEmail: String) {
+        validateEmail(newEmail)
+        this.email = newEmail
+    }
+
+    fun updatePassword(oldPassword: String, newPassword: String) {
+        if (this.password != oldPassword)
+            throw IllegalArgumentException()
+        this.password = newPassword
+    }
+
+    fun decreaseCash(amount: Long) {
+        if (amount > this.cash)
+            throw IllegalStateException()
+        this.cash -= amount
+    }
+
+    fun increaseCash(amount: Long) {
+        this.cash += amount
+    }
+
 }
