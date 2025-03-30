@@ -19,3 +19,11 @@ dependencyResolutionManagement {
 
 include(":module-api")
 project(":module-api").projectDir = file("module/api")
+
+listOf(
+    ":core-security" to "module/core-security"
+).forEach { (name, path) ->
+    include(name)
+    project(name).projectDir = file(path)
+}
+
