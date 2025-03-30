@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service
 import java.util.UUID
 
 @Service
-class MemberService(private val repo: MemberRepository) {
+class MemberService(
+    private val repo: MemberRepository,
+    private val passwordEncoder: PasswordEncoder
+) {
 
     fun create(name: String, email: String, password: String) =
         repo.save(Member(name, email, password))

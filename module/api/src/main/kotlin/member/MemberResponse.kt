@@ -1,4 +1,4 @@
-package interfaces.api
+package member
 
 class MemberResponse {
 }

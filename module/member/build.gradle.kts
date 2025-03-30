@@ -1,6 +1,13 @@
+plugins {
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
+}
+
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation(project(":core-security"))
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
     runtimeOnly("com.mysql:mysql-connector-j")
+
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 }
