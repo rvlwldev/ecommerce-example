@@ -6,7 +6,7 @@ import jakarta.persistence.Id
 import java.util.UUID
 
 @Entity
-class Member protected constructor() {
+class Member {
 
     @Id
     val id: UUID = UUID.randomUUID()
@@ -30,7 +30,8 @@ class Member protected constructor() {
     // TODO : dependant Address as @OneToMany
     // val address = listOf()
 
-    constructor(name: String, email: String, password: String) : this() {
+    constructor()
+    constructor(name: String, email: String, password: String) {
         validateEmail(email)
 
         this.name = name
