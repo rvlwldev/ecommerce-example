@@ -1,18 +1,14 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+plugins {
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
+}
 
 dependencies {
+    implementation(project(":core-security"))
+
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
-}
-
-tasks.withType<KotlinCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
-        freeCompilerArgs.addAll("-Xjsr305=strict")
-    }
-}
-
-tasks.withType<Test>().configureEach {
-    useJUnitPlatform()
-    ignoreFailures = true
+    implementation("org.springframework.boot:spring-boot-starter-security")
 }
