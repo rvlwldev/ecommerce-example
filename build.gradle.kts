@@ -34,7 +34,7 @@ subprojects {
         // development
         add("developmentOnly", "org.springframework.boot:spring-boot-devtools")
 
-        //
+        // test
         implementation("org.springframework.boot:spring-boot-starter-data-jpa")
         implementation("com.h2database:h2")
 
