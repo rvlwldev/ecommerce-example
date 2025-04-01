@@ -7,10 +7,6 @@ pluginManagement {
     }
 }
 
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.9.0"
-}
-
 dependencyResolutionManagement {
     @Suppress("UnstableApiUsage") repositories {
         mavenCentral()
@@ -22,3 +18,9 @@ project(":module-api").projectDir = file("module/api")
 
 include(":module-product")
 project(":module-product").projectDir = file("module/product")
+listOf(
+    ":core-security" to "module/core-security"
+).forEach { (name, path) ->
+    include(name)
+    project(name).projectDir = file(path)
+}

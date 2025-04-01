@@ -3,7 +3,7 @@
 **/.kotlin
 module/api/src/main/**/build/
 module/api/src/test/**/build/
-**/gradle/
+**/gradle/wrapper
 **/.gradle/
 
 ### Docker Volumes ###

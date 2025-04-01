@@ -1,18 +1,17 @@
+import org.gradle.kotlin.dsl.libs
+
 plugins {
     id("jacoco")
-    id("org.springframework.boot") version "3.4.1"
-    id("io.spring.dependency-management") version "1.1.7"
-    kotlin("jvm") version "2.0.0"
-    kotlin("plugin.spring") version "2.0.0"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.spring)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
 }
 
 subprojects {
     apply {
         plugin("jacoco")
-        plugin("org.springframework.boot")
-        plugin("io.spring.dependency-management")
         plugin("org.jetbrains.kotlin.jvm")
-        plugin("org.jetbrains.kotlin.plugin.spring")
     }
 
     extensions.configure<JavaPluginExtension>("java") {
@@ -53,6 +52,20 @@ subprojects {
     tasks.withType<Test>().configureEach {
         useJUnitPlatform()
         ignoreFailures = true
+    }
+
+    plugins.withId("org.springframework.boot") {
+        tasks.named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+            enabled = false
+        }
+        tasks.named<Jar>("jar") {
+            enabled = true
+        }
+    }
+
+    dependencies {
+        add("implementation", "org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        add("implementation", "org.jetbrains.kotlin:kotlin-reflect")
     }
 }
 
