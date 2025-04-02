@@ -13,17 +13,14 @@ dependencyResolutionManagement {
     }
 }
 
-// main
-include(":main-application").apply { project(":main-application").projectDir = file("module/application") }
+include(":module-api")
+project(":module-api").projectDir = file("module/api")
 
-// core
-include(":core-security").apply { project(":core-security").projectDir = file("module/core/security") }
-
-// infra
-include(":infra-mysql").apply { project(":infra-mysql").projectDir = file("module/infrastructure/mysql") }
-include(":infra-redis").apply { project(":infra-redis").projectDir = file("module/infrastructure/redis") }
-include(":infra-kafka").apply { project(":infra-kafka").projectDir = file("module/infrastructure/kafka") }
-
-// domain
-include(":domain-member").apply { project(":domain-member").projectDir = file("module/domain/member") }
-include(":domain-address").apply { project(":domain-address").projectDir = file("module/domain/address") }
+listOf(
+    ":core-security" to "module/core-security",
+    ":member" to "module/member",
+    ":address" to "module/address",
+).forEach { (name, path) ->
+    include(name)
+    project(name).projectDir = file(path)
+}

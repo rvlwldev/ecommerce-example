@@ -6,6 +6,9 @@ module/api/src/test/**/build/
 **/gradle/wrapper
 **/.gradle/
 
+### Docker Volumes ###
+volumes/
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -23,10 +26,6 @@ module/api/src/test/**/build/
 **/nbdist/
 **/.nb-gradle/
 
-### Docker Volume ###
-**/volume/
-
-### Log ###
 *.log
 *.log.*
 
@@ -35,4 +34,3 @@ module/api/src/test/**/build/
 
 # Ignore Gradle build output directory
 build
-
