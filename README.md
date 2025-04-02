@@ -60,6 +60,7 @@ domain/
     │   ├── Domain.kt
     │   ├── DomainService.kt
     │   └── DomainQuery.kt
+    │   └── etc.../
     │
     ├── infrastructure/external # 서비스 구현을 위한 기술 세부사항
     │   ├── DomainJpaRepository.kt
