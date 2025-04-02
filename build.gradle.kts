@@ -19,6 +19,36 @@ subprojects {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
+    dependencies {
+        // core
+        add("implementation", "org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        add("implementation", "org.jetbrains.kotlin:kotlin-reflect")
+        add("implementation", "org.jetbrains.kotlinx:kotlinx-coroutines-core")
+        add("implementation", "com.fasterxml.jackson.module:jackson-module-kotlin")
+
+        // spring boot
+        add("implementation", "org.springframework.boot:spring-boot-starter-data-redis")
+        add("implementation", "org.springframework.kafka:spring-kafka")
+
+        // development
+        add("developmentOnly", "org.springframework.boot:spring-boot-devtools")
+
+        // test
+        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+        implementation("com.h2database:h2")
+
+        // test
+        add("testImplementation", "org.springframework.boot:spring-boot-starter-test")
+        add("testImplementation", "org.jetbrains.kotlin:kotlin-test-junit5")
+        add("testImplementation", "org.jetbrains.kotlinx:kotlinx-coroutines-test")
+        add("testImplementation", "org.mockito.kotlin:mockito-kotlin:4.0.0")
+        add("testImplementation", "org.springframework.kafka:spring-kafka-test")
+        add("testImplementation", "org.testcontainers:testcontainers")
+        add("testImplementation", "com.redis:testcontainers-redis")
+        add("testImplementation", "org.testcontainers:kafka")
+        add("testImplementation", "org.testcontainers:junit-jupiter")
+    }
+
     tasks.withType<Test>().configureEach {
         useJUnitPlatform()
         ignoreFailures = true

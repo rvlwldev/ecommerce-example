@@ -16,6 +16,8 @@ dependencyResolutionManagement {
 include(":module-api")
 project(":module-api").projectDir = file("module/api")
 
+include(":module-product")
+project(":module-product").projectDir = file("module/product")
 listOf(
     ":core-security" to "module/core-security",
     ":member" to "module/member",
