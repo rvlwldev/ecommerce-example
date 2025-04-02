@@ -1,13 +1,8 @@
 package service
 
-import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
 import jakarta.persistence.Id
-import jakarta.persistence.OneToMany
-import org.hibernate.annotations.Fetch
-import org.hibernate.annotations.FetchMode
 import java.util.UUID
 
 @Entity
@@ -31,14 +26,7 @@ class Member(
     var cash: Long = 0
         private set
 
-    @OneToMany(
-        mappedBy = "member",
-        fetch = FetchType.LAZY,
-        cascade = [CascadeType.ALL],
-        orphanRemoval = true
-    )
-    @Fetch(FetchMode.JOIN)
-    val addresses: MutableList<Address> = mutableListOf()
+    val addressIds: MutableList<UUID> = mutableListOf()
 
     constructor(name: String, email: String, password: String) : this() {
         validateEmail(email)
