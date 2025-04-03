@@ -17,6 +17,7 @@ dependencyResolutionManagement {
 include(":main-application").apply { project(":main-application").projectDir = file("module/application") }
 
 // core
+include(":core-exception").apply { project(":core-exception").projectDir = file("module/core/exception") }
 include(":core-security").apply { project(":core-security").projectDir = file("module/core/security") }
 
 // infrastructure
