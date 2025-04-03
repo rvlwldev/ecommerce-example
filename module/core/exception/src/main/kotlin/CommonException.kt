@@ -1,0 +1,1 @@
+class CommonException(error: CommonError) : RuntimeException(error.message)
