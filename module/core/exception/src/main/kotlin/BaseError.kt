@@ -1,4 +1,4 @@
-interface CommonError {
+interface BaseError {
     val code: String
     val message: String
 }
