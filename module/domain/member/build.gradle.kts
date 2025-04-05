@@ -5,6 +5,8 @@ plugins {
 
 dependencies {
     implementation(project(":core-security"))
+    implementation(project(":infrastructure-mysql"))
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")

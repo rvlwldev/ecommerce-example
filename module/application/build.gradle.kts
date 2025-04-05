@@ -11,7 +11,5 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
 
-    implementation(project(":infrastructure-mysql"))
-
     implementation(project(":domain-member"))
 }
