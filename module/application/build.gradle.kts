@@ -1,4 +1,5 @@
 plugins {
+    kotlin("plugin.spring") version "2.0.0"
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dependency.management)
 }
