@@ -1,12 +1,11 @@
 spring:
-  profiles:
-    active: ${PROFILES:local}
   datasource:
-    url: jdbc:mysql://localhost:3306/ecommerce
+    url: jdbc:mysql://localhost:3306/ecommerce-practice
     username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show_sql: true

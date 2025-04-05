@@ -26,8 +26,6 @@ class Member(
     var cash: Long = 0
         private set
 
-    val addressIds: MutableList<UUID> = mutableListOf()
-
     constructor(name: String, email: String, password: String) : this() {
         validateEmail(email)
 
