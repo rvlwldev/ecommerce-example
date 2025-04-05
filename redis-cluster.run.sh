@@ -1,34 +1,50 @@
 #!/bin/bash
 set -e  # 오류 발생 시 즉시 종료
 
-echo "Stopping existing containers..."
-docker-compose -f docker-compose.master.yml down --remove-orphans
-docker-compose -f docker-compose.slave.yml down --remove-orphans
+echo "Stopping Redis cluster containers..."
+docker-compose -f docker-compose-redis-cluster-master.yml stop
+docker-compose -f docker-compose-redis-cluster-slave.yml stop
 
-echo "Waiting for containers to stop completely..."
-sleep 3
+echo "Removing Redis cluster containers..."
+docker-compose -f docker-compose-redis-cluster-master.yml rm -f
+docker-compose -f docker-compose-redis-cluster-slave.yml rm -f
+
+while docker ps | grep -q "redis-"; do
+  echo "Waiting for Redis containers to stop..."
+  sleep 0.5
+done
 
 echo "Removing any remaining Redis containers..."
-docker ps -aq --filter network=redis_cluster | xargs -r docker rm -f
+docker ps -aq --filter network=redis-cluster-network | xargs -r docker rm -f
 
 echo "Force removing network..."
-docker network rm redis_cluster || true
+docker network rm redis-cluster-network || true
 
-echo "Waiting before pruning networks..."
-sleep 3
+while docker network ls --format '{{.Name}}' | grep -Fxq "redis-cluster-network"; do
+  echo "Waiting for redis-cluster-network to be removed..."
+  sleep 0.5
+done
 
 echo "Pruning unused networks..."
 docker network prune -f
 
+echo "Cleaning up Redis cluster state..."
+rm -rf ./volume/redis/*
+
 echo "Waiting before starting Redis Cluster..."
-sleep 3
+until ! docker network ls | grep -q redis-cluster-network; do
+  sleep 0.5
+done
 
 echo "Starting Redis Cluster..."
-docker-compose -f docker-compose.master.yml up -d
-docker-compose -f docker-compose.slave.yml up -d
+docker-compose -f docker-compose-redis-cluster-master.yml up -d
+docker-compose -f docker-compose-redis-cluster-slave.yml up -d
 
 echo "Waiting for Redis to initialize..."
-sleep 5
+until docker exec redis-master-001 redis-cli ping | grep -q PONG; do
+  echo "Waiting for redis-master-001..."
+  sleep 0.5
+done
 
 echo "Creating Redis Cluster..."
 docker exec -it redis-master-001 redis-cli --cluster create \

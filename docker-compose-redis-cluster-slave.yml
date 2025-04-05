@@ -1,5 +1,5 @@
 networks:
-  cluster:
+  redis-cluster-network:
     driver: bridge
     ipam:
       config:
@@ -12,11 +12,11 @@ services:
     image: redis:latest
     restart: always
     volumes:
-      - ./redis.conf:/etc/redis.conf
+      - ./module/infrastructure/redis/src/main/resources/redis.conf:/etc/redis.conf
     ports:
       - "16001:6379"
     networks:
-      cluster:
+      redis-cluster-network:
         ipv4_address: 192.168.6.101
     command: [ "redis-server", "/etc/redis.conf" ]
 
@@ -25,11 +25,11 @@ services:
     image: redis:latest
     restart: always
     volumes:
-      - ./redis.conf:/etc/redis.conf
+      - ./module/infrastructure/redis/src/main/resources/redis.conf:/etc/redis.conf
     ports:
       - "26001:6379"
     networks:
-      cluster:
+      redis-cluster-network:
         ipv4_address: 192.168.6.102
     command: [ "redis-server", "/etc/redis.conf" ]
 
@@ -38,11 +38,11 @@ services:
     image: redis:latest
     restart: always
     volumes:
-      - ./redis.conf:/etc/redis.conf
+      - ./module/infrastructure/redis/src/main/resources/redis.conf:/etc/redis.conf
     ports:
       - "16002:6379"
     networks:
-      cluster:
+      redis-cluster-network:
         ipv4_address: 192.168.6.103
     command: [ "redis-server", "/etc/redis.conf" ]
 
@@ -51,11 +51,11 @@ services:
     image: redis:latest
     restart: always
     volumes:
-      - ./redis.conf:/etc/redis.conf
+      - ./module/infrastructure/redis/src/main/resources/redis.conf:/etc/redis.conf
     ports:
       - "26002:6379"
     networks:
-      cluster:
+      redis-cluster-network:
         ipv4_address: 192.168.6.104
     command: [ "redis-server", "/etc/redis.conf" ]
 
@@ -64,11 +64,11 @@ services:
     image: redis:latest
     restart: always
     volumes:
-      - ./redis.conf:/etc/redis.conf
+      - ./module/infrastructure/redis/src/main/resources/redis.conf:/etc/redis.conf
     ports:
       - "16003:6379"
     networks:
-      cluster:
+      redis-cluster-network:
         ipv4_address: 192.168.6.105
     command: [ "redis-server", "/etc/redis.conf" ]
 
@@ -77,10 +77,10 @@ services:
     image: redis:latest
     restart: always
     volumes:
-      - ./redis.conf:/etc/redis.conf
+      - ./module/infrastructure/redis/src/main/resources/redis.conf:/etc/redis.conf
     ports:
       - "26003:6379"
     networks:
-      cluster:
+      redis-cluster-network:
         ipv4_address: 192.168.6.106
     command: [ "redis-server", "/etc/redis.conf" ]

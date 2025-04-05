@@ -1,5 +1,5 @@
 networks:
-  cluster:
+  redis-cluster-network:
     driver: bridge
     ipam:
       config:
@@ -11,12 +11,13 @@ services:
     container_name: redis-master-001
     image: redis:latest
     volumes:
-      - ./redis.conf:/etc/redis.conf
+      - ./module/infrastructure/redis/src/main/resources/redis.conf:/etc/redis.conf
+      - ./volume/redis/001:/data
     restart: always
     ports:
       - "6001:6379"
     networks:
-      cluster:
+      redis-cluster-network:
         ipv4_address: 192.168.6.1
     command: [ "redis-server", "/etc/redis.conf", "--cluster-announce-ip", "192.168.6.1" ]
 
@@ -24,12 +25,13 @@ services:
     container_name: redis-master-002
     image: redis:latest
     volumes:
-      - ./redis.conf:/etc/redis.conf
+      - ./module/infrastructure/redis/src/main/resources/redis.conf:/etc/redis.conf
+      - ./volume/redis/002:/data
     restart: always
     ports:
       - "6002:6379"
     networks:
-      cluster:
+      redis-cluster-network:
         ipv4_address: 192.168.6.2
     command: [ "redis-server", "/etc/redis.conf", "--cluster-announce-ip", "192.168.6.2" ]
 
@@ -37,11 +39,12 @@ services:
     container_name: redis-master-003
     image: redis:latest
     volumes:
-      - ./redis.conf:/etc/redis.conf
+      - ./module/infrastructure/redis/src/main/resources/redis.conf:/etc/redis.conf
+      - ./volume/redis/003:/data
     restart: always
     ports:
       - "6003:6379"
     networks:
-      cluster:
+      redis-cluster-network:
         ipv4_address: 192.168.6.3
     command: [ "redis-server", "/etc/redis.conf", "--cluster-announce-ip", "192.168.6.3" ]
