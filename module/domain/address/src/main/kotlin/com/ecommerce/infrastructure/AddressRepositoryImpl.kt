@@ -1,6 +1,5 @@
 package com.ecommerce.infrastructure
 
-import service.Address
 import java.util.UUID
 
 class AddressRepositoryImpl(private val jpa: AddressJpaRepository) : com.ecommerce.service.AddressRepository {

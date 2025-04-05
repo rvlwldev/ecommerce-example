@@ -10,7 +10,7 @@ import java.util.UUID
 @Entity
 class Address() {
     @Id
-    @GeneratedValue(jakarta.persistence.GeneratedValue.strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID = UUID.randomUUID()
 
     lateinit var memberId: UUID

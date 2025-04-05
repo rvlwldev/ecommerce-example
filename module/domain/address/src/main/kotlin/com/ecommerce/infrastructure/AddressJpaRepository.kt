@@ -1,7 +1,7 @@
 package com.ecommerce.infrastructure
 
+import com.ecommerce.service.Address
 import org.springframework.data.jpa.repository.JpaRepository
-import service.Address
 import java.util.UUID
 
 interface AddressJpaRepository : JpaRepository<Address, UUID> {
