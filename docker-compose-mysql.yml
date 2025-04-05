@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   ecommerce-mysql:
     image: mysql:8.4.4
