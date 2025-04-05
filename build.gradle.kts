@@ -4,6 +4,7 @@ plugins {
     id("jacoco")
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.spring)
+    alias(libs.plugins.kotlin.jpa)
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dependency.management)
 }
@@ -12,6 +13,8 @@ subprojects {
     apply {
         plugin("jacoco")
         plugin("org.jetbrains.kotlin.jvm")
+        plugin("org.jetbrains.kotlin.plugin.spring")
+        plugin("org.jetbrains.kotlin.plugin.jpa")
     }
 
     extensions.configure<JavaPluginExtension>("java") {
