@@ -1,13 +1,9 @@
 #!/bin/bash
 set -e  # 오류 발생 시 즉시 종료
 
-echo "Stopping Redis cluster containers..."
-docker-compose -f docker-compose-redis-cluster-master.yml stop
-docker-compose -f docker-compose-redis-cluster-slave.yml stop
-
 echo "Removing Redis cluster containers..."
-docker-compose -f docker-compose-redis-cluster-master.yml rm -f
-docker-compose -f docker-compose-redis-cluster-slave.yml rm -f
+docker-compose -f docker-compose-redis-cluster-master.yml down
+docker-compose -f docker-compose-redis-cluster-slave.yml down
 
 while docker ps | grep -q "redis-"; do
   echo "Waiting for Redis containers to stop..."
@@ -18,7 +14,9 @@ echo "Removing any remaining Redis containers..."
 docker ps -aq --filter network=redis-cluster-network | xargs -r docker rm -f
 
 echo "Force removing network..."
-docker network rm redis-cluster-network || true
+if docker network ls --format '{{.Name}}' | grep -Fxq "redis-cluster-network"; then
+  docker network rm redis-cluster-network
+fi
 
 while docker network ls --format '{{.Name}}' | grep -Fxq "redis-cluster-network"; do
   echo "Waiting for redis-cluster-network to be removed..."
