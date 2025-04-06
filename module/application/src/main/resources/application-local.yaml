@@ -1,49 +1,6 @@
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/ecommerce-practice
-    username: root
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    defer-datasource-initialization: true
-    hibernate:
-      ddl-auto: update
-    show_sql: true
-  data:
-    redis:
-      cluster:
-        nodes:
-          - localhost:6001
-          - localhost:16001
-          - localhost:26001
-          - localhost:6002
-          - localhost:16002
-          - localhost:26002
-          - localhost:6003
-          - localhost:16003
-          - localhost:26003
-        timeout: 1000ms
-        lettuce:
-          pool:
-            max-active: 10
-            min-idle: 2
-            max-idle: 9
-            max-wait: 100ms
-        lock:
-          timeout: 1000
-          prefix: DISTRIBUTED-LOCK
-          retry: 5
-          delay: 100
-  kafka:
-    bootstrap-servers:
-      - localhost:9001
-      - localhost:9002
-      - localhost:9003
-    consumer:
-      group-id: ecommerce-consumer-group
-      auto-offset-reset: latest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  config:
+    import:
+      - classpath:mysql-${spring.profiles.active}.yml
+      - classpath:redis-${spring.profiles.active}.yml
+      - classpath:kafka-${spring.profiles.active}.yml
