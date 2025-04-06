@@ -1,0 +1,72 @@
+services:
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    platform: linux/amd64
+    container_name: kafka-ui
+    ports:
+      - "9000:8080"
+    restart: always
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local-dev
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-1:29092,kafka-2:29092,kafka-3:29092
+    depends_on:
+      - kafka-1
+      - kafka-2
+      - kafka-3
+
+  kafka-1:
+    container_name: kafka-1
+    image: confluentinc/cp-kafka:7.9.0
+    restart: on-failure
+    ports:
+      - "9001:9092"
+    volumes:
+      - ./volume/kafka/1:/var/lib/kafka/data
+    environment:
+      KAFKA_NODE_ID: 1
+      CLUSTER_ID: 12345678901234567890
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka-1:29093,2@kafka-2:29093,3@kafka-3:29093
+      KAFKA_LISTENERS: INTERNAL://kafka-1:29092,CONTROLLER://kafka-1:29093,EXTERNAL://0.0.0.0:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka-1:29092,EXTERNAL://127.0.0.1:9001
+
+  kafka-2:
+    container_name: kafka-2
+    image: confluentinc/cp-kafka:7.9.0
+    restart: on-failure
+    ports:
+      - "9002:9092"
+    volumes:
+      - ./volume/kafka/2:/var/lib/kafka/data
+    environment:
+      KAFKA_NODE_ID: 2
+      CLUSTER_ID: 12345678901234567890
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka-1:29093,2@kafka-2:29093,3@kafka-3:29093
+      KAFKA_LISTENERS: INTERNAL://kafka-2:29092,CONTROLLER://kafka-2:29093,EXTERNAL://0.0.0.0:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka-2:29092,EXTERNAL://127.0.0.1:9002
+
+  kafka-3:
+    container_name: kafka-3
+    image: confluentinc/cp-kafka:7.9.0
+    restart: on-failure
+    ports:
+      - "9003:9092"
+    volumes:
+      - ./volume/kafka/3:/var/lib/kafka/data
+    environment:
+      KAFKA_NODE_ID: 3
+      CLUSTER_ID: 12345678901234567890
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka-1:29093,2@kafka-2:29093,3@kafka-3:29093
+      KAFKA_LISTENERS: INTERNAL://kafka-3:29092,CONTROLLER://kafka-3:29093,EXTERNAL://0.0.0.0:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka-3:29092,EXTERNAL://127.0.0.1:9003
