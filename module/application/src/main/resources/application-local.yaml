@@ -4,3 +4,4 @@ spring:
       - classpath:mysql-${spring.profiles.active}.yml
       - classpath:redis-${spring.profiles.active}.yml
       - classpath:kafka-${spring.profiles.active}.yml
+      - classpath:monitoring.yml
