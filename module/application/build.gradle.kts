@@ -5,11 +5,16 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core-security"))
-
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
+
+    implementation(project(":core-security"))
+
+    implementation(project(":infrastructure-mysql"))
+    implementation(project(":infrastructure-redis"))
+    implementation(project(":infrastructure-kafka"))
+    implementation(project(":infrastructure-monitoring"))
 
     implementation(project(":domain-member"))
 }

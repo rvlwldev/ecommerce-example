@@ -24,6 +24,7 @@ include(":core-security").apply { project(":core-security").projectDir = file("m
 include(":infrastructure-mysql").apply { project(":infrastructure-mysql").projectDir = file("module/infrastructure/mysql") }
 include(":infrastructure-redis").apply { project(":infrastructure-redis").projectDir = file("module/infrastructure/redis") }
 include(":infrastructure-kafka").apply { project(":infrastructure-kafka").projectDir = file("module/infrastructure/kafka") }
+include(":infrastructure-monitoring").apply { project(":infrastructure-monitoring").projectDir = file("module/infrastructure/monitoring") }
 
 // domain
 include(":domain-member").apply { project(":domain-member").projectDir = file("module/domain/member") }
