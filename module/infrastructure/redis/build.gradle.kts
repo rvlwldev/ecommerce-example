@@ -1,7 +1,3 @@
-tasks.withType<JavaCompile>().configureEach {
-    options.compilerArgs.add("-parameters")
-}
-
 plugins {
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dependency.management)
