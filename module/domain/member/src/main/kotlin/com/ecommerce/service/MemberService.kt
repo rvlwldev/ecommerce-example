@@ -17,10 +17,12 @@ class MemberService(
     fun find(uuid: UUID) =
         repo.find(uuid) ?: throw IllegalArgumentException()
 
-    fun find(email: String, password: String) {
+    fun find(email: String, password: String): Member {
         val member = repo.find(email) ?: throw IllegalArgumentException()
 
         member.validatePassword(password, passwordEncoder)
+
+        return member
     }
 
     @DistributedLock(keys = ["uuid"])
