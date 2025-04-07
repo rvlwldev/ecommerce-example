@@ -1,5 +1,6 @@
 package com.ecommerce.controller;
 
+import com.ecommerce.dto.CartResponse;
 import com.ecommerce.entity.Cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,9 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping("/{memberId}")
-    public ResponseEntity<Cart> getCart(@PathVariable UUID memberId) {
+    public ResponseEntity<CartResponse> getCart(@PathVariable UUID memberId) {
         Cart cart = cartService.getCart(memberId);
-        return ResponseEntity.ok(cart);
+        return ResponseEntity.ok(CartResponse.from(cart));
     }
 
     @PostMapping("/add")
