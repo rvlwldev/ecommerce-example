@@ -1,6 +1,7 @@
-package service
+package com.ecommerce
 
-import PasswordEncoder
+import com.ecommerce.service.Member
+import com.ecommerce.service.MemberRepository
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import java.util.UUID

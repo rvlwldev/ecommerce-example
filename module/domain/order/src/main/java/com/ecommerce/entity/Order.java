@@ -1,10 +1,10 @@
 package com.ecommerce.entity;
 
+import com.ecommerce.service.Address;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import service.Address;
 
 import java.util.ArrayList;
 import java.util.List;

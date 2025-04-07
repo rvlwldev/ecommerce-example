@@ -1,7 +1,7 @@
 package com.ecommerce.interfaces.event
 
+import com.ecommerce.MemberService
 import com.ecommerce.service.MemberEvent
-import com.ecommerce.service.MemberService
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 

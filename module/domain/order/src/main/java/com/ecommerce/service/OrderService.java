@@ -1,7 +1,6 @@
 package com.ecommerce.service;
 
 import com.ecommerce.entity.*;
-import entity.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.ecommerce.repo.CartRepository;

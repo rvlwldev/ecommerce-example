@@ -20,15 +20,4 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody OrderRequest request) {
-        Order order = orderService.placeOrder(
-                UUID.randomUUID(),
-                request.getMemberId(),
-                request.getAddressId(),
-                request.getOrderItems()
-        );
-
-        return ResponseEntity.ok(order);
-    }
 }
