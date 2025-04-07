@@ -19,6 +19,6 @@ interface MemberJpaRepository : JpaRepository<Member, UUID> {
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @QueryHints(QueryHint(name = "jakarta.persistence.lock.timeout", value = "3000"))
-    fun findByEmailAndPassword(email: String, password: String): Optional<Member>
+    fun findByEmail(email: String): Optional<Member>
 
 }

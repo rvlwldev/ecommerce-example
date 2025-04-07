@@ -1,8 +1,8 @@
 package com.ecommerce.service
 
 import com.ecommerce.PasswordEncoder
-import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
 @Service
@@ -12,13 +12,16 @@ class MemberService(
 ) {
 
     fun create(name: String, email: String, password: String) =
-        repo.save(Member(name, email, password))
+        repo.save(Member(name, email, passwordEncoder.encode(password)))
 
     fun find(uuid: UUID) =
         repo.find(uuid) ?: throw IllegalArgumentException()
 
-    fun find(email: String, password: String) =
-        repo.find(email, passwordEncoder.encode(password)) ?: throw IllegalArgumentException()
+    fun find(email: String, password: String) {
+        val member = repo.find(email) ?: throw IllegalArgumentException()
+
+        member.validatePassword(password, passwordEncoder)
+    }
 
     @Transactional
     fun chargeCash(uuid: UUID, amount: Long): Member {
@@ -26,7 +29,7 @@ class MemberService(
 
         member.increaseCash(amount)
 
-        return member
+        return repo.save(member)
     }
 
     @Transactional
@@ -35,7 +38,7 @@ class MemberService(
 
         member.decreaseCash(amount)
 
-        return member
+        return repo.save(member)
     }
 
     fun withdraw(uuid: UUID, password: String) {

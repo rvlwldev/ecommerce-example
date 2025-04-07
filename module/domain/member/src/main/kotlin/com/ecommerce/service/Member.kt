@@ -1,5 +1,6 @@
 package com.ecommerce.service
 
+import com.ecommerce.PasswordEncoder
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
@@ -48,6 +49,11 @@ class Member(
     fun updateEmail(newEmail: String) {
         validateEmail(newEmail)
         this.email = newEmail
+    }
+
+    fun validatePassword(password: String, encoder: PasswordEncoder) {
+        if (!encoder.matches(password, this.password))
+            throw IllegalArgumentException()
     }
 
     fun updatePassword(oldPassword: String, newPassword: String) {
