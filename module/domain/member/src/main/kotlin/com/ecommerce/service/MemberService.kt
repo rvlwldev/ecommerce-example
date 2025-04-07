@@ -14,7 +14,7 @@ class MemberService(
     fun create(name: String, email: String, password: String) =
         repo.save(Member(name, email, passwordEncoder.encode(password)))
 
-    fun find(uuid: UUID) =
+    fun find(uuid: UUID): Member =
         repo.find(uuid) ?: throw IllegalArgumentException()
 
     fun find(email: String, password: String): Member {
