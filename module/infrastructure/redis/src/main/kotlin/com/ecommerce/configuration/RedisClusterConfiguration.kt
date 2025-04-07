@@ -1,4 +1,4 @@
-package configuration
+package com.ecommerce.configuration
 
 import io.lettuce.core.ReadFrom
 import org.springframework.context.annotation.Bean

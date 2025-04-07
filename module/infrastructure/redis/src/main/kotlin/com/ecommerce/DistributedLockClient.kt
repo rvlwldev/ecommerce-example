@@ -1,4 +1,6 @@
-import configuration.DistributedLockProperty
+package com.ecommerce
+
+import com.ecommerce.configuration.DistributedLockProperty
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Component
 import java.time.Duration

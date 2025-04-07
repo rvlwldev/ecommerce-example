@@ -1,8 +1,8 @@
 package com.ecommerce.service
 
+import com.ecommerce.DistributedLock
 import com.ecommerce.PasswordEncoder
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
 @Service
@@ -23,7 +23,7 @@ class MemberService(
         member.validatePassword(password, passwordEncoder)
     }
 
-    @Transactional
+    @DistributedLock(keys = ["uuid"])
     fun chargeCash(uuid: UUID, amount: Long): Member {
         val member = repo.find(uuid) ?: throw IllegalArgumentException()
 
@@ -32,7 +32,7 @@ class MemberService(
         return repo.save(member)
     }
 
-    @Transactional
+    @DistributedLock(keys = ["uuid"])
     fun useCash(uuid: UUID, amount: Long): Member {
         val member = repo.find(uuid) ?: throw IllegalArgumentException()
 
