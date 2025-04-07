@@ -24,6 +24,15 @@ class MemberService(
     }
 
     @DistributedLock(keys = ["uuid"])
+    fun changeName(uuid: UUID, newName: String): Member {
+        val member = repo.find(uuid) ?: throw IllegalArgumentException()
+
+        member.updateName(newName)
+
+        return repo.save(member)
+    }
+
+    @DistributedLock(keys = ["uuid"])
     fun chargeCash(uuid: UUID, amount: Long): Member {
         val member = repo.find(uuid) ?: throw IllegalArgumentException()
 
@@ -43,6 +52,8 @@ class MemberService(
 
     fun withdraw(uuid: UUID, password: String) {
         val member = repo.find(uuid) ?: throw IllegalArgumentException()
+
+        member.validatePassword(password, passwordEncoder)
 
         repo.delete(member)
     }

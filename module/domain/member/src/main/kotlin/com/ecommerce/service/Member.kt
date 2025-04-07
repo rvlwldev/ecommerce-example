@@ -41,30 +41,24 @@ class Member(
     }
 
     fun updateName(newName: String) {
-        if (newName.isEmpty())
-            throw IllegalArgumentException()
+        if (newName.isEmpty()) throw IllegalArgumentException()
+
         this.name = newName
     }
 
-    fun updateEmail(newEmail: String) {
-        validateEmail(newEmail)
-        this.email = newEmail
-    }
-
     fun validatePassword(password: String, encoder: PasswordEncoder) {
-        if (!encoder.matches(password, this.password))
-            throw IllegalArgumentException()
+        if (!encoder.matches(password, this.password)) throw IllegalArgumentException()
     }
 
-    fun updatePassword(oldPassword: String, newPassword: String) {
-        if (this.password != oldPassword)
-            throw IllegalArgumentException()
-        this.password = newPassword
+    fun updatePassword(oldPassword: String, newPassword: String, encoder: PasswordEncoder) {
+        if (!encoder.matches(oldPassword, this.password)) throw IllegalArgumentException()
+
+        this.password = encoder.encode(newPassword)
     }
 
     fun decreaseCash(amount: Long) {
-        if (amount > this.cash)
-            throw IllegalStateException()
+        if (amount > this.cash) throw IllegalStateException()
+
         this.cash -= amount
     }
 
