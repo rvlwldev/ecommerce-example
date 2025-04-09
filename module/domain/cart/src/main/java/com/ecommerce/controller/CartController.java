@@ -28,8 +28,9 @@ public class CartController {
     }
 
     @DeleteMapping("/{memberId}")
-    public ResponseEntity<Void> clearCart(@PathVariable UUID memberId) {
-        cartService.clearCart(memberId);
+    public ResponseEntity<Void> clearCart(@PathVariable String memberId) {
+        System.out.println(UUID.randomUUID());
+        cartService.clearCart(UUID.fromString(memberId));
         return ResponseEntity.ok().build();
     }
 
