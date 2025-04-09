@@ -2,7 +2,6 @@ package com.ecommerce
 
 import com.ecommerce.service.Member
 import com.ecommerce.service.MemberRepository
-import com.ecommerce.service.MemberService
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.mock

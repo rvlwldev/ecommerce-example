@@ -29,3 +29,5 @@ include(":infrastructure-monitoring").apply { project(":infrastructure-monitorin
 // domain
 include(":domain-member").apply { project(":domain-member").projectDir = file("module/domain/member") }
 include(":domain-address").apply { project(":domain-address").projectDir = file("module/domain/address") }
+include(":domain-order").apply {project(":domain-order").projectDir = file("module/domain/order")}
+include(":domain-cart").apply {project(":domain-cart").projectDir = file("module/domain/cart")}

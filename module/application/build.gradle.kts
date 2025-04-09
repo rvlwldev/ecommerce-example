@@ -7,7 +7,7 @@ plugins {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-security")
+//    implementation("org.springframework.boot:spring-boot-starter-security")
 
     implementation(project(":core-security"))
 
@@ -17,4 +17,5 @@ dependencies {
     implementation(project(":infrastructure-monitoring"))
 
     implementation(project(":domain-member"))
+    implementation(project(":domain-cart"))
 }
