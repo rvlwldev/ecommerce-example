@@ -26,6 +26,9 @@ include(":infrastructure-redis").apply { project(":infrastructure-redis").projec
 include(":infrastructure-kafka").apply { project(":infrastructure-kafka").projectDir = file("module/infrastructure/kafka") }
 include(":infrastructure-monitoring").apply { project(":infrastructure-monitoring").projectDir = file("module/infrastructure/monitoring") }
 
+// testcontainers
+include(":testcontainer-redis").apply { project(":testcontainer-redis").projectDir = file("module/infrastructure/testcontainer/redis") }
+
 // domain
 include(":domain-member").apply { project(":domain-member").projectDir = file("module/domain/member") }
 include(":domain-address").apply { project(":domain-address").projectDir = file("module/domain/address") }
