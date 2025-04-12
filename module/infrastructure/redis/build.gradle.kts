@@ -5,5 +5,6 @@ plugins {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-aop")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
+    api("org.springframework.boot:spring-boot-starter-data-redis")
 }
