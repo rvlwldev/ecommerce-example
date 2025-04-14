@@ -6,6 +6,7 @@ plugins {
 dependencies {
     implementation(project(":core-security"))
     implementation(project(":infrastructure-mysql"))
+    implementation(project(":infrastructure-redis"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
