@@ -16,18 +16,18 @@ dependencyResolutionManagement {
 // main
 include(":application").apply { project(":application").projectDir = file("module/app") }
 
+// test
+include(":test-redis").apply { project(":test-redis").projectDir = file("module/test/redis") }
+
 // core
 include(":core-exception").apply { project(":core-exception").projectDir = file("module/core/exception") }
 include(":core-security").apply { project(":core-security").projectDir = file("module/core/security") }
 
-// infrastructure
-include(":infrastructure-mysql").apply { project(":infrastructure-mysql").projectDir = file("module/infrastructure/mysql") }
-include(":infrastructure-redis").apply { project(":infrastructure-redis").projectDir = file("module/infrastructure/redis") }
-include(":infrastructure-kafka").apply { project(":infrastructure-kafka").projectDir = file("module/infrastructure/kafka") }
-include(":infrastructure-monitoring").apply { project(":infrastructure-monitoring").projectDir = file("module/infrastructure/monitoring") }
-
-// testcontainers
-include(":testcontainer-redis").apply { project(":testcontainer-redis").projectDir = file("module/infrastructure/testcontainer/redis") }
+// common
+include(":common-mysql").apply { project(":common-mysql").projectDir = file("module/common/mysql") }
+include(":common-redis").apply { project(":common-redis").projectDir = file("module/common/redis") }
+include(":common-kafka").apply { project(":common-kafka").projectDir = file("module/common/kafka") }
+include(":common-monitoring").apply { project(":common-monitoring").projectDir = file("module/common/monitoring") }
 
 // domain
 include(":domain-member").apply { project(":domain-member").projectDir = file("module/domain/member") }

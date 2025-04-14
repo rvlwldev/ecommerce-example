@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":infrastructure-redis"))
+    implementation(project(":common-redis"))
 
     implementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.testcontainers:junit-jupiter")

@@ -11,10 +11,10 @@ dependencies {
 
     implementation(project(":core-security"))
 
-    implementation(project(":infrastructure-mysql"))
-    implementation(project(":infrastructure-redis"))
-    implementation(project(":infrastructure-kafka"))
-    implementation(project(":infrastructure-monitoring"))
+    implementation(project(":common-mysql"))
+    implementation(project(":common-redis"))
+    implementation(project(":common-kafka"))
+    implementation(project(":common-monitoring"))
 
     implementation(project(":domain-member"))
 }
