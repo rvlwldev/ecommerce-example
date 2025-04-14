@@ -14,7 +14,7 @@ dependencyResolutionManagement {
 }
 
 // main
-include(":main-application").apply { project(":main-application").projectDir = file("module/application") }
+include(":application").apply { project(":application").projectDir = file("module/app") }
 
 // core
 include(":core-exception").apply { project(":core-exception").projectDir = file("module/core/exception") }
