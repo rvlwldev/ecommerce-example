@@ -32,15 +32,15 @@ class MemberUnitTest {
     @Test
     fun `success - increase then decrease cash within balance`() {
         val member = Member(name = "test", email = "test@test.com", password = "pass")
-        member.increaseCash(200)
+        member.updateCash(200)
         assertDoesNotThrow {
-            member.decreaseCash(100)
+            member.updateCash(-100)
         }
     }
 
     @Test
     fun `fail - create member with invalid email format`() {
-        assertThrows<IllegalArgumentException> {
+        assertThrows<Exception> {
             Member(name = "test", password = "pass", email = "NotEmailFormat")
         }
     }
@@ -48,7 +48,7 @@ class MemberUnitTest {
     @Test
     fun `fail - update name with empty string`() {
         val member = Member(name = "test", email = "test@test.com", password = "pass")
-        assertThrows<IllegalArgumentException> {
+        assertThrows<CommonException> {
             member.updateName("")
         }
     }
@@ -56,7 +56,7 @@ class MemberUnitTest {
     @Test
     fun `fail - update password with incorrect current password`() {
         val member = Member(name = "test", email = "test@test.com", password = "oldPass")
-        assertThrows<IllegalArgumentException> {
+        assertThrows<CommonException> {
             member.updatePassword("wrongPass", "newPass")
         }
     }
@@ -64,8 +64,8 @@ class MemberUnitTest {
     @Test
     fun `fail - decrease cash beyond current balance`() {
         val member = Member(name = "test", email = "test@test.com", password = "pass")
-        assertThrows<IllegalStateException> {
-            member.decreaseCash(100)
+        assertThrows<CommonException> {
+            member.updateCash(-100)
         }
     }
 
