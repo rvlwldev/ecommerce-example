@@ -16,5 +16,5 @@ dependencies {
     implementation(project(":common-kafka"))
     implementation(project(":common-monitoring"))
 
-    implementation(project(":domain-rest-controller"))
+    implementation(project(":member-rest-controller"))
 }
