@@ -11,13 +11,19 @@ class MemberService(
 ) {
 
     fun create(name: String, email: String, password: String) =
-        repo.save(Member(name, email, password))
+        repo.save(Member(name, email, passwordEncoder.encode(password)))
 
     fun find(uuid: UUID) =
         repo.find(uuid) ?: throw MemberException.NotFound()
 
-    fun find(email: String, password: String) =
-        repo.find(email, passwordEncoder.encode(password)) ?: throw MemberException.Unauthorized()
+    fun find(email: String, password: String): Member {
+        val member = repo.find(email) ?: throw MemberException.Unauthorized()
+
+        if (passwordEncoder.matches(password, member.password))
+            throw MemberException.Unauthorized()
+
+        return member
+    }
 
     @TransactionalDistributedLock(keys = ["uuid"])
     fun chargeCash(uuid: UUID, amount: Long): Member {

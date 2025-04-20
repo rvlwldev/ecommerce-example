@@ -9,8 +9,8 @@ class MemberRepositoryImpl(private val jpa: MemberJpaRepository) : MemberReposit
     override fun find(uuid: UUID) =
         jpa.findById(uuid).orElse(null)
 
-    override fun find(email: String, encryptedPassword: String) =
-        jpa.findByEmailAndPassword(email, encryptedPassword).orElse(null)
+    override fun find(email: String) =
+        jpa.findByEmail(email).orElse(null)
 
     override fun save(member: Member) =
         jpa.save(member)
