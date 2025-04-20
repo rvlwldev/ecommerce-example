@@ -1,4 +1,5 @@
 import org.gradle.kotlin.dsl.libs
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("jacoco")
@@ -25,6 +26,12 @@ subprojects {
     tasks.withType<Test>().configureEach {
         useJUnitPlatform()
         ignoreFailures = true
+    }
+
+    tasks.withType<KotlinCompile>().configureEach {
+        compilerOptions {
+            javaParameters.set(true)
+        }
     }
 
     plugins.withId("org.springframework.boot") {
