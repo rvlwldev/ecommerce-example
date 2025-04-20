@@ -36,29 +36,30 @@ class Member(
 
     private fun validateEmail(email: String) {
         if (!Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$").matches(email))
-            throw IllegalArgumentException()
+            throw MemberException.InvalidEmail()
     }
 
     fun updateName(newName: String) {
-        if (newName.isEmpty())
-            throw IllegalArgumentException()
+        if (newName.isEmpty()) throw MemberException.EmptyName()
+
         this.name = newName
     }
 
     fun updateEmail(newEmail: String) {
         validateEmail(newEmail)
+
         this.email = newEmail
     }
 
     fun updatePassword(oldPassword: String, newPassword: String) {
-        if (this.password != oldPassword)
-            throw IllegalArgumentException()
+        if (this.password != oldPassword) throw MemberException.InvalidPassword()
+
         this.password = newPassword
     }
 
     fun decreaseCash(amount: Long) {
-        if (amount > this.cash)
-            throw IllegalStateException()
+        if (amount > this.cash) throw MemberException.NotEnoughCash()
+
         this.cash -= amount
     }
 

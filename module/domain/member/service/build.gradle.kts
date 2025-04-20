@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":core-exception"))
     implementation(project(":core-security"))
 
     implementation(project(":common-redis"))

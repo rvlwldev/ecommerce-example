@@ -14,14 +14,14 @@ class MemberService(
         repo.save(Member(name, email, password))
 
     fun find(uuid: UUID) =
-        repo.find(uuid) ?: throw IllegalArgumentException()
+        repo.find(uuid) ?: throw MemberException.NotFound()
 
     fun find(email: String, password: String) =
-        repo.find(email, passwordEncoder.encode(password)) ?: throw IllegalArgumentException()
+        repo.find(email, passwordEncoder.encode(password)) ?: throw MemberException.Unauthorized()
 
     @TransactionalDistributedLock(keys = ["uuid"])
     fun chargeCash(uuid: UUID, amount: Long): Member {
-        val member = repo.find(uuid) ?: throw IllegalArgumentException()
+        val member = repo.find(uuid) ?: throw throw MemberException.NotFound()
 
         member.increaseCash(amount)
 
@@ -30,7 +30,7 @@ class MemberService(
 
     @TransactionalDistributedLock(keys = ["uuid"])
     fun useCash(uuid: UUID, amount: Long): Member {
-        val member = repo.find(uuid) ?: throw IllegalArgumentException()
+        val member = repo.find(uuid) ?: throw throw MemberException.NotFound()
 
         member.decreaseCash(amount)
 
@@ -38,7 +38,7 @@ class MemberService(
     }
 
     fun withdraw(uuid: UUID, password: String) {
-        val member = repo.find(uuid) ?: throw IllegalArgumentException()
+        val member = repo.find(uuid) ?: throw MemberException.NotFound()
 
         repo.delete(member)
     }
