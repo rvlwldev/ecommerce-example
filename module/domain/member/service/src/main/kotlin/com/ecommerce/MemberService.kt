@@ -37,6 +37,9 @@ class MemberService(
     fun withdraw(uuid: UUID, password: String) {
         val member = repo.find(uuid) ?: throw MemberException.NotFound()
 
+        if (!passwordEncoder.matches(password, member.password))
+            throw MemberException.Unauthorized()
+
         repo.delete(member)
     }
 
