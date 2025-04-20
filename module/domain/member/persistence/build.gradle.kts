@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":common-mysql"))
+    implementation(project(":member-service"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
