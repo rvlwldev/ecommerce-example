@@ -9,12 +9,12 @@ open class CommonException(
     constructor(message: String) : this("UNKNOWN", message)
     constructor() : this(500, "Unexpected Internal Server Error Occurred")
 
-    class InvalidValue(message: String = "Invalid Input Format") : CommonException(400, message)
-    class RequiredValue(message: String = "Required Value is Empty") : CommonException(400, message)
-    class Unauthorized(message: String = "Unauthorized access") : CommonException(401, message)
-    class Forbidden(message: String = "Forbidden Data") : CommonException(401, message)
-    class NotFound(message: String = "Data Not Found") : CommonException(404, message)
-    class AlreadyExists(message: String = "Duplicated Data") : CommonException(409, message)
-    class InvalidState(message: String = "Invalid Data State, Already Done Or Cancelled") : CommonException(409, message)
+    open class InvalidValue(message: String = "Invalid Input Format") : CommonException(400, message)
+    open class RequiredValue(message: String = "Required Value is Empty") : CommonException(400, message)
+    open class Unauthorized(message: String = "Unauthorized access") : CommonException(401, message)
+    open class Forbidden(message: String = "Forbidden Data") : CommonException(401, message)
+    open class NotFound(message: String = "Data Not Found") : CommonException(404, message)
+    open class AlreadyExists(message: String = "Duplicated Data") : CommonException(409, message)
+    open class InvalidState(message: String = "Invalid Data State, Already Done Or Cancelled") : CommonException(409, message)
 
 }
