@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core-web"))
+    implementation(project(":common-web"))
 
     implementation(project(":member-service"))
 
