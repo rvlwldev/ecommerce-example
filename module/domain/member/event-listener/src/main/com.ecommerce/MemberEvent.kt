@@ -1,5 +1,3 @@
-package com.ecommerce.service
-
 import java.util.UUID
 
 class MemberEvent {

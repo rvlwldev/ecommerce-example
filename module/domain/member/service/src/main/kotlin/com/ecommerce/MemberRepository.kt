@@ -1,4 +1,4 @@
-package com.ecommerce.service
+package com.ecommerce
 
 import java.util.UUID
 

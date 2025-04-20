@@ -1,6 +1,5 @@
 package com.ecommerce
 
-import com.ecommerce.service.Member
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows

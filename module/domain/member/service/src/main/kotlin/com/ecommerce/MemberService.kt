@@ -1,7 +1,6 @@
-package com.ecommerce.service
+package com.ecommerce
 
 import com.ecommerce.aop.DistributedLock
-import com.ecommerce.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.UUID
 

@@ -1,6 +1,6 @@
-package com.ecommerce.infrastructure
+package com.ecommerce
 
-import com.ecommerce.service.Member
+import com.ecommerce.Member
 import jakarta.persistence.LockModeType
 import jakarta.persistence.QueryHint
 import org.springframework.data.jpa.repository.EntityGraph

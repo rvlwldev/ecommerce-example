@@ -1,4 +1,4 @@
-package com.ecommerce.service
+package com.ecommerce
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

@@ -29,6 +29,13 @@ include(":common-redis").apply { project(":common-redis").projectDir = file("mod
 include(":common-kafka").apply { project(":common-kafka").projectDir = file("module/common/kafka") }
 include(":common-monitoring").apply { project(":common-monitoring").projectDir = file("module/common/monitoring") }
 
-// domain
-include(":domain-member").apply { project(":domain-member").projectDir = file("module/domain/member") }
+
+// member
+listOf("rest-controller", "event-listener", "service", "persistence")
+    .forEach { name ->
+        include(":member-$name").apply {
+            project(":member-$name").projectDir = file("module/domain/member/$name")
+        }
+    }
+
 include(":domain-address").apply { project(":domain-address").projectDir = file("module/domain/address") }

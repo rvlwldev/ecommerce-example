@@ -1,7 +1,5 @@
-package com.ecommerce.infrastructure
+package com.ecommerce
 
-import com.ecommerce.service.Member
-import com.ecommerce.service.MemberRepository
 import org.springframework.stereotype.Repository
 import java.util.UUID
 

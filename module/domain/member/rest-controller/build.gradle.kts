@@ -4,10 +4,10 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core-security"))
-
-    implementation(project(":common-mysql"))
-    implementation(project(":common-redis"))
+//    implementation(project(":core-security"))
+//
+//    implementation(project(":common-mysql"))
+//    implementation(project(":common-redis"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
