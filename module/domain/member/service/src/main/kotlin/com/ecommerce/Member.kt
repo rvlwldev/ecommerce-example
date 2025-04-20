@@ -57,13 +57,9 @@ class Member(
         this.password = newPassword
     }
 
-    fun decreaseCash(amount: Long) {
-        if (amount > this.cash) throw MemberException.NotEnoughCash()
+    fun updateCash(amount: Long) {
+        if (amount + this.cash < 0) throw MemberException.NotEnoughCash()
 
-        this.cash -= amount
-    }
-
-    fun increaseCash(amount: Long) {
         this.cash += amount
     }
 
