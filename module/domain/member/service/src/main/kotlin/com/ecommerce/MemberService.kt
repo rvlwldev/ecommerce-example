@@ -1,6 +1,6 @@
 package com.ecommerce
 
-import com.ecommerce.aop.DistributedLock
+import com.ecommerce.aop.TransactionalDistributedLock
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -19,7 +19,7 @@ class MemberService(
     fun find(email: String, password: String) =
         repo.find(email, passwordEncoder.encode(password)) ?: throw IllegalArgumentException()
 
-    @DistributedLock(keys = ["uuid"])
+    @TransactionalDistributedLock(keys = ["uuid"])
     fun chargeCash(uuid: UUID, amount: Long): Member {
         val member = repo.find(uuid) ?: throw IllegalArgumentException()
 
@@ -28,7 +28,7 @@ class MemberService(
         return repo.save(member)
     }
 
-    @DistributedLock(keys = ["uuid"])
+    @TransactionalDistributedLock(keys = ["uuid"])
     fun useCash(uuid: UUID, amount: Long): Member {
         val member = repo.find(uuid) ?: throw IllegalArgumentException()
 
