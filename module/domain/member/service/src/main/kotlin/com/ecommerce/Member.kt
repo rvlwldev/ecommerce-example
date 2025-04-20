@@ -34,21 +34,21 @@ class Member(
         this.password = password
     }
 
-    private fun validateEmail(email: String) {
+    fun validateEmail(email: String) {
         if (!Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$").matches(email))
             throw MemberException.InvalidEmail()
-    }
-
-    fun updateName(newName: String) {
-        if (newName.isEmpty()) throw MemberException.EmptyName()
-
-        this.name = newName
     }
 
     fun updateEmail(newEmail: String) {
         validateEmail(newEmail)
 
         this.email = newEmail
+    }
+
+    fun updateName(newName: String) {
+        if (newName.isEmpty()) throw MemberException.EmptyName()
+
+        this.name = newName
     }
 
     fun updatePassword(oldPassword: String, newPassword: String) {
