@@ -4,6 +4,8 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":core-exception"))
+
     implementation(project(":common-web"))
 
     implementation(project(":member-service"))
