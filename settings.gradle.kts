@@ -28,7 +28,7 @@ include(":common-mysql").apply { project(":common-mysql").projectDir = file("mod
 include(":common-redis").apply { project(":common-redis").projectDir = file("module/common/redis") }
 include(":common-kafka").apply { project(":common-kafka").projectDir = file("module/common/kafka") }
 include(":common-monitoring").apply { project(":common-monitoring").projectDir = file("module/common/monitoring") }
-
+include(":common-web").apply { project(":common-web").projectDir = file("module/common/web") }
 
 // member
 listOf("rest-controller", "event-listener", "service", "persistence")
