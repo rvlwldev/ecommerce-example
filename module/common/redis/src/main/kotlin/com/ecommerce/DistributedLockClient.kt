@@ -28,4 +28,14 @@ class DistributedLockClient(
     fun releaseLock(key: String) =
         redis.delete(key)
 
+    fun <T> tryWithLock(key: String, action: () -> T): T {
+        if (!acquireLock(key)) throw IllegalStateException("Lock failed for key: $key")
+
+        return try {
+            action()
+        } finally {
+            releaseLock(key)
+        }
+    }
+
 }
