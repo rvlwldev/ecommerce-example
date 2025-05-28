@@ -6,36 +6,47 @@ import org.springframework.stereotype.Component
 import java.time.Duration
 
 @Component
-class DistributedLockClient(
+class DistributedLockClient<T>(
     private val redis: RedisTemplate<String, Boolean>,
     private val property: DistributedLockProperty
 ) {
 
-    fun acquireLock(key: String): Boolean {
-        val lockKey = "${property.prefix}:$key"
-        val timeout = Duration.ofMillis(property.timeout)
+    fun acquire(
+        key: T,
+        prefix: String = property.prefix,
+        timeout: Long = property.timeout,
+        delay: Long = property.delay,
+        retry: Int = property.retry
+    ): Boolean {
+        val lockKey = "$prefix:${key.toString()}"
+        val timeout = Duration.ofMillis(timeout)
 
-        repeat(property.retry) {
+        repeat(retry) {
             val success = redis.opsForValue().setIfAbsent(lockKey, true, timeout)
             if (success == true) return true
 
-            Thread.sleep(property.delay)
+            Thread.sleep(delay)
         }
 
-        return false
+        throw IllegalStateException(String.format(LOCK_ALREADY_HELD_MESSAGE, key))
     }
 
-    fun releaseLock(key: String) =
-        redis.delete(key)
+    fun release(key: T, prefix: String = property.prefix) =
+        redis.delete("$prefix:${key.toString()}")
 
-    fun <T> tryWithLock(key: String, action: () -> T): T {
-        if (!acquireLock(key)) throw IllegalStateException("Lock failed for key: $key")
-
-        return try {
+    fun <R> runWithLock(key: T, action: () -> R) =
+        try {
+            acquire(key)
             action()
         } finally {
-            releaseLock(key)
+            release(key)
         }
+
+    fun isLocked(key: T, prefix: String = property.prefix) =
+        redis.hasKey("$prefix:${key.toString()}")
+
+    companion object {
+        const val LOCK_ALREADY_HELD_MESSAGE = "Failed to acquire lock. Lock already held for key: %s"
     }
 
 }
