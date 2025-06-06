@@ -1,15 +1,26 @@
 package com.ecommerce
 
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
+import org.springframework.data.redis.core.RedisTemplate
 import org.testcontainers.containers.GenericContainer
 import org.testcontainers.utility.DockerImageName
 
 object RedisTestContainer {
-    private val container = GenericContainer<Nothing>(DockerImageName.parse("redis:latest")).apply {
-        withExposedPorts(6379)
+
+    fun createContainer(port: Int = 6379) = GenericContainer(DockerImageName.parse("redis:latest")).apply {
+        withExposedPorts(port)
         start()
     }
 
-    val host: String get() = container.host
-    val port: Int get() = container.firstMappedPort
-    val uri: String get() = "redis://$host:$port"
+    fun <K, V> createTemplate(container: GenericContainer<*>, mappedPort: Int): RedisTemplate<K, V> {
+        val config = RedisStandaloneConfiguration(container.host, mappedPort)
+        val factory = LettuceConnectionFactory(config).apply { afterPropertiesSet() }
+
+        return RedisTemplate<K, V>().apply {
+            connectionFactory = factory
+            afterPropertiesSet()
+        }
+    }
+
 }
