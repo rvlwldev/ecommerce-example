@@ -1,6 +1,11 @@
 spring:
   data:
     redis:
+      lock:
+        keyPrefix: DISTRIBUTED-LOCK
+        retry: 5
+        retryDelayMillis: 500
+        lockTimeoutMillis: 40000
       cluster:
         nodes:
           - localhost:6001
@@ -19,8 +24,3 @@ spring:
             min-idle: 2
             max-idle: 9
             max-wait: 100ms
-        lock:
-          timeout: 1000
-          prefix: DISTRIBUTED-LOCK
-          retry: 5
-          delay: 100
