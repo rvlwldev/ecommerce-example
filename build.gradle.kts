@@ -16,6 +16,8 @@ subprojects {
         plugin("org.jetbrains.kotlin.jvm")
         plugin("org.jetbrains.kotlin.plugin.spring")
         plugin("org.jetbrains.kotlin.plugin.jpa")
+        plugin("org.springframework.boot")
+        plugin("io.spring.dependency-management")
     }
 
     extensions.configure<JavaPluginExtension>("java") {
@@ -46,6 +48,9 @@ subprojects {
     dependencies {
         add("implementation", "org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         add("implementation", "org.jetbrains.kotlin:kotlin-reflect")
+
+        add("testImplementation", "org.jetbrains.kotlin:kotlin-test-junit5")
+        add("testImplementation", "org.mockito:mockito-core")
     }
 }
 
