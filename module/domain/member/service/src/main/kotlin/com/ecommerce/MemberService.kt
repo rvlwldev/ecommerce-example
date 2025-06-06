@@ -1,6 +1,7 @@
 package com.ecommerce
 
-import com.ecommerce.aop.TransactionalDistributedLock
+import com.ecommerce.lock.LockKey
+import com.ecommerce.lock.TransactionalDistributedLock
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -25,8 +26,8 @@ class MemberService(
         return member
     }
 
-    @TransactionalDistributedLock(keys = ["uuid"])
-    fun updateCash(uuid: String, amount: Long): Member {
+    @TransactionalDistributedLock("user-cash")
+    fun updateCash(@LockKey uuid: String, amount: Long): Member {
         val member = repo.find(UUID.fromString(uuid)) ?: throw MemberException.NotFound()
 
         member.updateCash(amount)
