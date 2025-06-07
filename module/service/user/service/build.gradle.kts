@@ -1,8 +1,3 @@
-plugins {
-    alias(libs.plugins.spring.boot)
-    alias(libs.plugins.spring.dependency.management)
-}
-
 dependencies {
     implementation(project(":core-exception"))
     implementation(project(":core-security"))
