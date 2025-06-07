@@ -51,6 +51,9 @@ listOf(
     "user" to "persistence",
     "user" to "rest",
     "user" to "event-listener",
+
+    // point
+    "point" to "domain",
 ).forEach { (name, layer) ->
     include(":$name-$layer")
     project(":$name-$layer").projectDir = file("module/service/$name/$layer")
