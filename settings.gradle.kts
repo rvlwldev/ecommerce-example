@@ -14,28 +14,44 @@ dependencyResolutionManagement {
 }
 
 // main
-include(":application").apply { project(":application").projectDir = file("module/app") }
-
-// test
-include(":test-redis").apply { project(":test-redis").projectDir = file("module/test/redis") }
+include(":main-application")
+project(":main-application").projectDir = file("module/application")
 
 // core
-include(":core-exception").apply { project(":core-exception").projectDir = file("module/core/exception") }
-include(":core-security").apply { project(":core-security").projectDir = file("module/core/security") }
+listOf(
+    "exception",
+    "security",
+).forEach { name ->
+    include(":core-$name")
+    project(":core-$name").projectDir = file("module/core/$name")
+}
 
 // common
-include(":common-mysql").apply { project(":common-mysql").projectDir = file("module/common/mysql") }
-include(":common-redis").apply { project(":common-redis").projectDir = file("module/common/redis") }
-include(":common-kafka").apply { project(":common-kafka").projectDir = file("module/common/kafka") }
-include(":common-monitoring").apply { project(":common-monitoring").projectDir = file("module/common/monitoring") }
-include(":common-web").apply { project(":common-web").projectDir = file("module/common/web") }
+listOf(
+    "mysql",
+    "redis",
+    "kafka",
+    /* monitoring */
+).forEach { name ->
+    include(":common-$name")
+    project(":common-$name").projectDir = file("module/common/$name")
+}
 
-// member
-listOf("rest-controller", "event-listener", "service", "persistence")
-    .forEach { name ->
-        include(":member-$name").apply {
-            project(":member-$name").projectDir = file("module/domain/member/$name")
-        }
-    }
+// test
+listOf("redis").forEach { name ->
+    include(":test-$name")
+    project(":test-$name").projectDir = file("module/test/$name")
+}
 
-include(":domain-address").apply { project(":domain-address").projectDir = file("module/domain/address") }
+// service
+listOf(
+    // user
+    "user" to "domain",
+    "user" to "service",
+    "user" to "persistence",
+    "user" to "rest",
+    "user" to "event-listener",
+).forEach { (name, layer) ->
+    include(":$name-$layer")
+    project(":$name-$layer").projectDir = file("module/service/$name/$layer")
+}
