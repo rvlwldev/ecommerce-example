@@ -1,20 +1,31 @@
 package com.ecommerce
 
-open class CommonException(
-    val code: String,
-    override val message: String
-) : RuntimeException(message) {
+open class CommonException : RuntimeException {
+    val code: String
+    val status: Int
 
-    constructor(code: Any, message: String) : this(code.toString(), message)
-    constructor(message: String) : this("UNKNOWN", message)
-    constructor() : this(500, "Unexpected Internal Server Error Occurred")
+    constructor() : this("COMMON_999", 500, "Unexpected Internal Server Error Occurred")
 
-    open class InvalidValue(message: String = "Invalid Input Format") : CommonException(400, message)
-    open class RequiredValue(message: String = "Required Value is Empty") : CommonException(400, message)
-    open class Unauthorized(message: String = "Unauthorized access") : CommonException(401, message)
-    open class Forbidden(message: String = "Forbidden Data") : CommonException(401, message)
-    open class NotFound(message: String = "Data Not Found") : CommonException(404, message)
-    open class AlreadyExists(message: String = "Duplicated Data") : CommonException(409, message)
-    open class InvalidState(message: String = "Invalid Data State, Already Done Or Cancelled") : CommonException(409, message)
+    constructor(message: String) : this("UNKNOWN", 500, message)
+
+    constructor(e: BaseErrorCode) : super(e.message) {
+        this.code = e.code
+        this.status = e.status
+    }
+
+    constructor(e: BaseErrorCode, message: String = e.message) : super(message) {
+        this.code = e.code
+        this.status = e.status
+    }
+
+    constructor(status: Int) : super() {
+        this.code = "UNKNOWN"
+        this.status = status
+    }
+
+    constructor(code: String, status: Int = 500, message: String) : super(message) {
+        this.code = code
+        this.status = status
+    }
 
 }
