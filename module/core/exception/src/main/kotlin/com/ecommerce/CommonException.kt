@@ -8,12 +8,12 @@ open class CommonException : RuntimeException {
 
     constructor(message: String) : this("UNKNOWN", 500, message)
 
-    constructor(e: BaseErrorCode) : super(e.message) {
+    constructor(e: CommonError) : super(e.message) {
         this.code = e.code
         this.status = e.status
     }
 
-    constructor(e: BaseErrorCode, message: String = e.message) : super(message) {
+    constructor(e: CommonError, message: String = e.message) : super(message) {
         this.code = e.code
         this.status = e.status
     }
