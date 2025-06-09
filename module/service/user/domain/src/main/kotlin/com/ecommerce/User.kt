@@ -12,10 +12,10 @@ class User(
     var name = name
         private set
 
-    var email: String = email
+    var email = email
         private set
 
-    var password: String = password
+    var password = password
         private set
 
     constructor(name: String, email: String, password: String) : this() {
@@ -28,10 +28,14 @@ class User(
         this.password = password
     }
 
-    fun validateName(name: String) {
-        require(name.isNotEmpty()) { UserError.NOT_EMPTY_NAME }
-        require(name.length >= 2) { UserError.INVALID_NAME_LENGTH }
-        require(name != this.name) { UserError.DUPLICATE_NAME }
+    private inline fun validateOrThrow(condition: Boolean, error: () -> UserError) {
+        if (!condition) throw UserException(error())
+    }
+
+    private fun validateName(name: String) {
+        validateOrThrow(name.isNotEmpty()) { UserError.NOT_EMPTY_NAME }
+        validateOrThrow(name.length >= 2) { UserError.INVALID_NAME_LENGTH }
+        validateOrThrow(name != this.name) { UserError.DUPLICATE_NAME }
     }
 
     fun updateName(name: String) {
@@ -39,21 +43,20 @@ class User(
         this.name = name
     }
 
-    fun validateEmail(email: String) {
+    private fun validateEmail(email: String) {
         val regex = Regex("^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+|\\[[0-9]{1,3}(\\.[0-9]{1,3}){3}])$")
-
-        require(email.isNotEmpty()) { UserError.NOT_EMPTY_EMAIL }
-        require(regex.matches(email)) { UserError.INVALID_EMAIL }
-        require(email != this.email) { UserError.DUPLICATE_EMAIL }
+        validateOrThrow(email.isNotEmpty()) { UserError.NOT_EMPTY_EMAIL }
+        validateOrThrow(regex.matches(email)) { UserError.INVALID_EMAIL }
+        validateOrThrow(email != this.email) { UserError.DUPLICATE_EMAIL }
     }
 
     fun updateEmail(newEmail: String) {
         validateEmail(newEmail)
-        email = newEmail
+        this.email = newEmail
     }
 
-    fun validatePassword(password: String) {
-        require(password.isNotEmpty()) { UserError.NOT_EMPTY_PASSWORD }
+    private fun validatePassword(password: String) {
+        validateOrThrow(password.isNotEmpty()) { UserError.NOT_EMPTY_PASSWORD }
     }
 
     fun updatePassword(password: String) {
