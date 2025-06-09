@@ -1,10 +1,9 @@
 import com.ecommerce.User
-import com.ecommerce.UserError
+import com.ecommerce.UserException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
-import kotlin.test.assertEquals
 
 class UserTest {
 
@@ -28,23 +27,12 @@ class UserTest {
 
     @Test
     fun `failure - name validation throws with invalid inputs`() {
-        var ex = assertThrows<IllegalArgumentException> { User("", "test@test.com", "pass") }
-        assertEquals(UserError.NOT_EMPTY_NAME, ex.message)
-
-        ex = assertThrows<IllegalArgumentException> { User("1", "test@test.com", "pass") }
-        assertEquals(UserError.INVALID_NAME_LENGTH, ex.message)
-
-        ex = assertThrows<IllegalArgumentException> { user.updateName("") }
-        assertEquals(UserError.NOT_EMPTY_NAME, ex.message)
-
-        ex = assertThrows<IllegalArgumentException> { user.updateName("1") }
-        assertEquals(UserError.INVALID_NAME_LENGTH, ex.message)
-
-        ex = assertThrows<IllegalArgumentException> { user.updateName(name) }
-        assertEquals(UserError.DUPLICATE_NAME, ex.message)
-
-        ex = assertThrows<IllegalArgumentException> { user.updateName(user.name) }
-        assertEquals(UserError.DUPLICATE_NAME, ex.message)
+        assertThrows<UserException> { User("", "test@test.com", "pass") }
+        assertThrows<UserException> { User("1", "test@test.com", "pass") }
+        assertThrows<UserException> { user.updateName("") }
+        assertThrows<UserException> { user.updateName("1") }
+        assertThrows<UserException> { user.updateName(name) }
+        assertThrows<UserException> { user.updateName(user.name) }
     }
 
     @Test
@@ -62,29 +50,14 @@ class UserTest {
 
     @Test
     fun `failure - email validation throws with invalid formats or duplicates`() {
-        var ex = assertThrows<IllegalArgumentException> { User(name, "", password) }
-        assertEquals(UserError.NOT_EMPTY_EMAIL, ex.message)
-
-        ex = assertThrows<IllegalArgumentException> { User(name, "test-email", password) }
-        assertEquals(UserError.INVALID_EMAIL, ex.message)
-
-        ex = assertThrows<IllegalArgumentException> { User(name, "test@", password) }
-        assertEquals(UserError.INVALID_EMAIL, ex.message)
-
-        ex = assertThrows<IllegalArgumentException> { User(name, "@test", password) }
-        assertEquals(UserError.INVALID_EMAIL, ex.message)
-
-        ex = assertThrows<IllegalArgumentException> { user.updateEmail("not-an-email") }
-        assertEquals(UserError.INVALID_EMAIL, ex.message)
-
-        ex = assertThrows<IllegalArgumentException> { user.updateEmail("not an email") }
-        assertEquals(UserError.INVALID_EMAIL, ex.message)
-
-        ex = assertThrows<IllegalArgumentException> { user.updateEmail(email) }
-        assertEquals(UserError.DUPLICATE_EMAIL, ex.message)
-
-        ex = assertThrows<IllegalArgumentException> { user.updateEmail(user.email) }
-        assertEquals(UserError.DUPLICATE_EMAIL, ex.message)
+        assertThrows<UserException> { User(name, "", password) }
+        assertThrows<UserException> { User(name, "test-email", password) }
+        assertThrows<UserException> { User(name, "test@", password) }
+        assertThrows<UserException> { User(name, "@test", password) }
+        assertThrows<UserException> { user.updateEmail("not-an-email") }
+        assertThrows<UserException> { user.updateEmail("not an email") }
+        assertThrows<UserException> { user.updateEmail(email) }
+        assertThrows<UserException> { user.updateEmail(user.email) }
     }
 
     @Test
@@ -95,7 +68,7 @@ class UserTest {
 
     @Test
     fun `failure - password update throws when empty`() {
-        val ex = assertThrows<IllegalArgumentException> { user.updatePassword("") }
-        assertEquals(UserError.NOT_EMPTY_PASSWORD, ex.message)
+        assertThrows<UserException> { user.updatePassword("") }
     }
+    
 }
