@@ -48,9 +48,11 @@ listOf(
     // user
     "user" to "domain",
     "user" to "event-listener",
+    "user" to "auth-service",
     "user" to "command-service",
     "user" to "command-persistence",
     "user" to "command-rest",
+    "user" to "query-service",
 
     // point
     "point" to "domain",
