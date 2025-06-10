@@ -47,10 +47,10 @@ listOf("redis").forEach { name ->
 listOf(
     // user
     "user" to "domain",
-    "user" to "service",
-    "user" to "persistence",
-    "user" to "rest",
     "user" to "event-listener",
+    "user" to "command-service",
+    "user" to "command-persistence",
+    "user" to "command-rest",
 
     // point
     "point" to "domain",
