@@ -1,0 +1,11 @@
+package com.ecommerce
+
+enum class UserError {
+    INVALID_NAME_LENGTH,
+    NOT_EMPTY_NAME,
+    DUPLICATE_NAME,
+    INVALID_EMAIL,
+    NOT_EMPTY_EMAIL,
+    DUPLICATE_EMAIL,
+    NOT_EMPTY_PASSWORD
+}
