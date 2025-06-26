@@ -56,6 +56,10 @@ listOf(
 
     // point
     "point" to "domain",
+
+    // order
+    "order" to "domain",
+    "order" to "command-service",
 ).forEach { (name, layer) ->
     include(":$name-$layer")
     project(":$name-$layer").projectDir = file("module/service/$name/$layer")
