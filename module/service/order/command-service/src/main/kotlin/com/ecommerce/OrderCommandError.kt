@@ -27,5 +27,8 @@ enum class OrderCommandError(
 
         fun toCommonException(domainError: OrderError): CommonException =
             CommonException(map[domainError] ?: INVALID_ORDER_COMMAND)
+
+        fun toCommonException(domainError: String?): CommonException =
+            CommonException(map[OrderError.valueOf(domainError ?: "")] ?: INVALID_ORDER_COMMAND)
     }
 }

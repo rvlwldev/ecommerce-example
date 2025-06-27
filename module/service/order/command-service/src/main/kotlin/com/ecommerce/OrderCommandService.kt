@@ -25,8 +25,9 @@ class OrderCommandService(
         val orderItems = products.map { product ->
             val quantity = items[product.id] ?: throw CommonException(ORDERED_QUANTITY_GTE_ONE)
             product.decreaseQuantity(quantity)
-            OrderItem.create(product.id, product.price, quantity)
-        }
+            return@map runCatching { OrderItem(product.id, product.price, quantity) }
+                .getOrElse { e -> throw OrderCommandError.toCommonException(e.message) }
+        }.apply { require(size == items.size) { throw CommonException(ORDERED_PRODUCT_NOT_ORDERABLE) } }
         val order = Order(userId, orderItems)
 
         return repo.save(order)
@@ -53,6 +54,7 @@ class OrderCommandService(
         val order = repo.find(orderId) ?: throw CommonException(ORDER_NOT_FOUND)
         port.cancel(userId, order.id)
         order.cancel()
+        pointCommand.charge(userId, order.totalAmount)
 
         return repo.save(order)
     }
