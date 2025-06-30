@@ -32,6 +32,7 @@ listOf(
     "redis",
     "kafka",
     /* monitoring */
+    "http",
 ).forEach { name ->
     include(":common-$name")
     project(":common-$name").projectDir = file("module/common/$name")
@@ -56,6 +57,16 @@ listOf(
 
     // point
     "point" to "domain",
+    "point" to "command-service",
+
+    // order
+    "order" to "domain",
+    "order" to "command-service",
+    "order" to "command-rest",
+
+    // product
+    "product" to "domain",
+    "product" to "query-service",
 ).forEach { (name, layer) ->
     include(":$name-$layer")
     project(":$name-$layer").projectDir = file("module/service/$name/$layer")

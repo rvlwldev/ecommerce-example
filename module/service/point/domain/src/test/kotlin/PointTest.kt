@@ -43,18 +43,17 @@ class PointTest {
     @Test
     fun `failure - charge throws when amount is zero or negative`() {
         var ex = assertThrows<IllegalArgumentException> { point.charge(0) }
-        assertEquals(PointError.INVALID_POINT_AMOUNT, ex.message)
+        assertEquals(PointError.INVALID_POINT_AMOUNT.name, ex.message)
 
         ex = assertThrows<IllegalArgumentException> { point.charge(-10) }
-        assertEquals(PointError.INVALID_POINT_AMOUNT, ex.message)
+        assertEquals(PointError.INVALID_POINT_AMOUNT.name, ex.message)
     }
 
     @Test
     fun `failure - charge throws when amount is not multiple of charge unit`() {
         val ex = assertThrows<IllegalArgumentException> { point.charge(15) }
 
-        val message = String.format(PointError.INVALID_CHARGE_AMOUNT_UNIT, 10)
-        assertEquals(message, ex.message)
+        assertEquals(PointError.INVALID_CHARGE_AMOUNT_UNIT.name, ex.message)
     }
 
     @Test
@@ -90,10 +89,10 @@ class PointTest {
     @Test
     fun `failure - use throws when amount is zero or negative`() {
         var ex = assertThrows<IllegalArgumentException> { point.use(0) }
-        assertEquals(PointError.INVALID_POINT_AMOUNT, ex.message)
+        assertEquals(PointError.INVALID_POINT_AMOUNT.name, ex.message)
 
         ex = assertThrows<IllegalArgumentException> { point.use(-10) }
-        assertEquals(PointError.INVALID_POINT_AMOUNT, ex.message)
+        assertEquals(PointError.INVALID_POINT_AMOUNT.name, ex.message)
     }
 
     @Test
@@ -101,6 +100,6 @@ class PointTest {
         point.charge(30)
 
         val ex = assertThrows<IllegalArgumentException> { point.use(50) }
-        assertEquals(PointError.NOT_ENOUGH_POINT, ex.message)
+        assertEquals(PointError.NOT_ENOUGH_POINT.name, ex.message)
     }
 }

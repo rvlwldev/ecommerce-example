@@ -3,8 +3,7 @@ package com.ecommerce
 import java.util.UUID
 
 class Point(
-    val userId: UUID,
-    amount: Long = 0
+    val userId: UUID, amount: Long = 0
 ) {
     var amount = amount
         private set
@@ -17,10 +16,7 @@ class Point(
 
     fun charge(amount: Long) {
         validateAmount(amount)
-
-        require(amount % chargeUnit == 0L) {
-            String.format(PointError.INVALID_CHARGE_AMOUNT_UNIT, chargeUnit)
-        }
+        require(amount % chargeUnit == 0L) { PointError.INVALID_CHARGE_AMOUNT_UNIT }
 
         this.amount += amount
     }
