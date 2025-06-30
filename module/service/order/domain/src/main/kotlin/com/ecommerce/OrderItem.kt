@@ -6,6 +6,7 @@ import java.util.UUID
 class OrderItem(
     val id: UUID = UUID.randomUUID(),
     val productId: UUID,
+    val productName: String = "",
     val price: Long,
     val quantity: Long = 1L
 ) {
