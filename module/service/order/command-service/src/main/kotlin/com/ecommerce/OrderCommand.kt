@@ -1,3 +1,5 @@
+package com.ecommerce
+
 import java.util.UUID
 
 class OrderCommand {

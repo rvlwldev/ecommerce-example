@@ -1,4 +1,4 @@
-import OrderCommand.*
+import com.ecommerce.OrderCommand.*
 import com.ecommerce.CommonException
 import com.ecommerce.Order
 import com.ecommerce.OrderCommandError.*

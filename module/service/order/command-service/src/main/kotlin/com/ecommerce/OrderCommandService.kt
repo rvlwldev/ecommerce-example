@@ -1,8 +1,8 @@
 package com.ecommerce
 
-import OrderCommand.CancelOrderCommand
-import OrderCommand.CreateOrderCommand
-import OrderCommand.ProceedOrderCommand
+import com.ecommerce.OrderCommand.CancelOrderCommand
+import com.ecommerce.OrderCommand.CreateOrderCommand
+import com.ecommerce.OrderCommand.ProceedOrderCommand
 import com.ecommerce.OrderCommandError.*
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -14,10 +14,10 @@ class OrderCommandService(
     private val userQuery: UserQueryUseCase,
     private val productQuery: ProductQueryUseCase,
     private val pointCommand: PointCommandUseCase
-) {
+) : OrderCommandUseCase {
 
     @Transactional
-    fun createOrder(command: CreateOrderCommand): Order {
+    override fun createOrder(command: CreateOrderCommand): Order {
         val (userId, items) = command
         userQuery.isAvailableOrThrow(userId)
 
@@ -34,7 +34,7 @@ class OrderCommandService(
     }
 
     @Transactional
-    fun proceedOrder(command: ProceedOrderCommand): Order {
+    override fun proceedOrder(command: ProceedOrderCommand): Order {
         val (userId, orderId) = command
         userQuery.isAvailableOrThrow(userId)
 
@@ -47,7 +47,7 @@ class OrderCommandService(
     }
 
     @Transactional
-    fun cancelOrder(command: CancelOrderCommand): Order {
+    override fun cancelOrder(command: CancelOrderCommand): Order {
         val (userId, orderId) = command
         userQuery.isAvailableOrThrow(userId)
 
