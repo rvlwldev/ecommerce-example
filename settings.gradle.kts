@@ -62,6 +62,7 @@ listOf(
     // order
     "order" to "domain",
     "order" to "command-service",
+    "order" to "command-rest",
 
     // product
     "product" to "domain",
