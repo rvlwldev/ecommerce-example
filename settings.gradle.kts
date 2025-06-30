@@ -32,6 +32,7 @@ listOf(
     "redis",
     "kafka",
     /* monitoring */
+    "http",
 ).forEach { name ->
     include(":common-$name")
     project(":common-$name").projectDir = file("module/common/$name")
