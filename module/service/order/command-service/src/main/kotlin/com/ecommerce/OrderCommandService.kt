@@ -54,7 +54,7 @@ class OrderCommandService(
         val (userId, orderId) = command
         userQuery.isAvailableOrThrow(userId)
 
-        val order = repo.find(orderId) ?: throw CommonException(ORDER_NOT_FOUND)
+        val order = repo.findByOrderNumber(orderId) ?: throw CommonException(ORDER_NOT_FOUND)
         port.proceedPayment(userId, order.id)
         pointCommand.use(userId, order.totalAmount)
         order.proceedPay()
@@ -67,7 +67,7 @@ class OrderCommandService(
         val (userId, orderId) = command
         userQuery.isAvailableOrThrow(userId)
 
-        val order = repo.find(orderId) ?: throw CommonException(ORDER_NOT_FOUND)
+        val order = repo.findByOrderNumber(orderId) ?: throw CommonException(ORDER_NOT_FOUND)
         port.cancel(userId, order.id)
         order.cancel()
         pointCommand.charge(userId, order.totalAmount)
